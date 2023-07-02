@@ -1,0 +1,21 @@
+.not-found {
+  margin: 246px calc((100% - 400px) / 2) 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .not-found {
+    margin-top: 409px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .not-found {
+    margin-top: 329px;
+    margin-left: calc((100% - 300px) / 2);
+    margin-right: calc((100% - 300px) / 2);
+  }
+}

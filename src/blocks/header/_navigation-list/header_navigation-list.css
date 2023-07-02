@@ -1,0 +1,19 @@
+.header_navigation-list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  align-items: center;
+  margin: 0 0 39px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .header_navigation-list {
+    margin-top: 3px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header_navigation-list {
+    margin-top: 0;
+  }
+}

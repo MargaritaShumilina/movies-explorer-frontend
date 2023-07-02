@@ -1,0 +1,14 @@
+.not-found_status {
+  font-size: 144px;
+  line-height: 169px;
+  font-weight: 400;
+  margin: 0 0 5px;
+}
+
+@media screen and (max-width: 450px) {
+  .not-found_status {
+    font-size: 80px;
+    line-height: 97px;
+    margin-bottom: 10px;
+  }
+}

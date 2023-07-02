@@ -1,0 +1,14 @@
+.project-diagram {
+  display: grid;
+  grid-template-columns: minmax(110px, 228px) minmax(184px, 912px);
+  grid-template-rows: fit-content(36px) 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  justify-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .project-diagram {
+    grid-template-columns: minmax(100px, 140px) minmax(184px, 912px);
+  }
+}

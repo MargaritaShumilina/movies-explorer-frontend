@@ -1,0 +1,11 @@
+@import url('../../blocks/footer/footer.css');
+
+@import url('../../blocks/footer/_label/footer_label.css');
+
+@import url('../../blocks/footer/_container/footer_container.css');
+
+@import url('../../blocks/footer/_copywrite/footer_copywrite.css');
+
+@import url('../../blocks/footer/_list/footer_list.css');
+
+@import url('../../blocks/footer/_item/footer_item.css');

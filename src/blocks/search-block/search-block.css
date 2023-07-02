@@ -1,0 +1,65 @@
+.search-block {
+  margin: 0 70px 10px;
+  padding-bottom: 71px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+@media screen and (max-width: 768px) {
+  .search-block {
+    margin: 11px 28px 10px 30px;
+    padding-bottom: 112px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .search-block {
+    margin-right: calc((100% - 300px) / 2);
+    margin-left: calc((100% - 300px) / 2);
+    padding-bottom: 111px;
+  }
+}
+
+/* .search_short-films-radio {
+  display: none;
+} */
+
+@import url('../../blocks/search/_short-films-checkbox/search_short-films-checkbox.css');
+/* 
+.search_short-films-filter label {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  position: relative;
+}
+
+@media screen and (max-width: 620px) {
+  .search_short-films-filter label {
+    position: absolute;
+    top: 114px;
+    right: 74px;
+  }
+}
+
+.search_short-films-filter label:before {
+  content: '';
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../../images/smalltumboff.svg');
+  position: absolute;
+  right: 129px;
+  width: 40px;
+  height: 40px;
+}
+
+@media screen and (max-width: 620px) {
+  .search_short-films-filter label:before {
+    right: 111px;
+  }
+}
+
+.search_short-films-filter .search_short-films-radio:checked + label:before {
+  background-image: url('../../images/smalltumb.svg');
+} */
+
+@import url('../../blocks/search/_short-films-filter/search_short-films-filter.css');

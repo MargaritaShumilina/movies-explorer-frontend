@@ -1,0 +1,23 @@
+.about-project {
+  margin: 110px 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .about-project {
+    margin: 90px 51px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .about-project {
+    margin: 92px calc((100% - 284px) / 2);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about-project {
+    margin-top: 71px;
+  }
+}

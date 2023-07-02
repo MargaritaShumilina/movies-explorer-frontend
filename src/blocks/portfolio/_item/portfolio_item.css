@@ -1,0 +1,28 @@
+.portfolio_item {
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 50px;
+  padding-bottom: 19px;
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio_item {
+    font-size: 27px;
+  }
+}
+
+@media screen and (max-width: 615px) {
+  .portfolio_item {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
+
+.portfolio_item:last-child {
+  margin-bottom: 20px;
+}

@@ -1,0 +1,57 @@
+@import url('../../blocks/logo/logo.css');
+
+@import url('../../blocks/header/header.css');
+
+@import url('../../blocks/main-page-header/main-page-header.css');
+
+@import url('../../blocks/header/_logo/header_logo.css');
+
+@import url('../../blocks/header/_logo/__login/header_logo__login.css');
+
+@import url('../../blocks/header/_menu/header_menu.css');
+
+@import url('../../blocks/header/_navigation-list/header_navigation-list.css');
+
+@import url('../../blocks/header/_navigation-list/__login/header_navigation-list__login.css');
+
+@import url('../../blocks/header/_navigation-item/header_navigation-item.css');
+
+@import url('../../blocks/button-style/button-style.css');
+
+@import url('../../blocks/header/_navigation-item/__login/header_navigation-item__login.css');
+
+@import url('../../blocks/header/_navigation/__login/header_navigation__login.css');
+
+@import url('../../blocks/profile-page/profile-page.css');
+
+@import url('../../blocks/profile-page/_icon/profile-page_icon.css');
+
+@import url('../../blocks/profile-page/_title/profile-page_title.css');
+
+@import url('../../blocks/header/_navigation-item/__last-login/header_navigation-item__last-login.css');
+
+@import url('../../blocks/header/_menu-burger/header_menu-burger.css');
+
+@import url('../../blocks/header/_menu-burger/__opened/header_menu-burger__opened.css');
+
+@import url('../../blocks/header/_mobile/header_mobile.css');
+
+@import url('../../blocks/header/_mobile-navigation-icon/header_mobile-navigation-icon.css');
+
+@import url('../../blocks/header/_mobile-navigation-list/header_mobile-navigation-list.css');
+
+@import url('../../blocks/header/_mobile-navigation-item/header_mobile-navigation-item.css');
+
+@import url('../../blocks/header/_mobile-navigation-item/__last/header_mobile-navigation-item__last.css');
+
+@import url('../../blocks/header/_mobile-navigation-profile/header_mobile-navigation-profile.css');
+
+@import url('../../blocks/header/_mobile-navigation-last-item-menu/header_mobile-navigation-last-item-menu.css');
+
+@import url('../../blocks/header/_mobile-navigation-link/header_mobile-navigation-link.css');
+
+@import url('../../blocks/main-link-style/main-link-style.css');
+
+@import url('../../blocks/header/_navigation-item-link/header_navigation-item-link.css');
+
+@import url('../../blocks/link-button-style/link-button-style.css');

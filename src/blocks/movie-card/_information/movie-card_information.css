@@ -1,0 +1,15 @@
+.movie-card_information {
+  margin: 13px 6px 14px 12px;
+}
+
+@media screen and (max-width: 768px) {
+  .movie-card_information {
+    margin: 12px 8px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .movie-card_information {
+    margin-left: 12px;
+  }
+}

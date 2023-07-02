@@ -1,0 +1,26 @@
+.profile_inputs-style {
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+}
+
+.profile_inputs-style:last-child {
+  border: none;
+  padding-bottom: 0;
+  margin-bottom: 208px;
+}
+
+@media screen and (max-width: 768px) {
+  .profile_inputs-style:last-child {
+    margin-bottom: 196px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile_inputs-style:last-child {
+    margin-bottom: 366px;
+  }
+}

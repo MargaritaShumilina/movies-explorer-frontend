@@ -1,0 +1,15 @@
+.saved-movie-card-list {
+  margin-bottom: 250px;
+}
+
+@media screen and (max-width: 768px) {
+  .saved-movie-card-list {
+    margin-bottom: 245px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .saved-movie-card-list {
+    margin-bottom: 248px;
+  }
+}

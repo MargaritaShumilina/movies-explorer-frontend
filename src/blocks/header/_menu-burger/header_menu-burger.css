@@ -1,0 +1,11 @@
+.header_menu-burger {
+  width: 44px;
+  height: 44px;
+}
+
+@media screen and (max-width: 320px) {
+  .header_menu-burger {
+    width: 34px;
+    height: 38px;
+  }
+}

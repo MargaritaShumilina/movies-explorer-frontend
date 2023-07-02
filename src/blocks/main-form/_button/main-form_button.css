@@ -1,0 +1,21 @@
+.main-form_button {
+  margin-top: 69px;
+  background-color: #000;
+  color: #fff;
+  padding: 13px 0;
+  margin-bottom: 16px;
+  border-radius: 3px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+}
+
+@media screen and (max-width: 450px) {
+  .main-form_button {
+    margin-top: 154px;
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 15px;
+  }
+}

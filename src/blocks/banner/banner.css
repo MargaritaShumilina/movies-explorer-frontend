@@ -1,0 +1,24 @@
+.banner {
+  display: flex;
+  position: relative;
+  padding: 49px calc((100% - 730px) / 2) 122px calc((100% - 730px) / 2);
+  z-index: 2;
+}
+
+@media screen and (max-width: 768px) {
+  .banner {
+    padding: 185px calc((100% - 730px) / 2) 242px calc((100% - 730px) / 2);
+  }
+}
+
+@media screen and (max-width: 615px) {
+  .banner {
+    padding: 142px calc((100% - 730px) / 2) 180px calc((100% - 730px) / 2);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .banner {
+    padding: 65px calc((100% - 730px) / 2) 124px calc((100% - 730px) / 2);
+  }
+}

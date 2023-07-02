@@ -1,0 +1,9 @@
+.main-navigation {
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 25px;
+  padding-bottom: 24px;
+}

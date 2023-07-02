@@ -1,0 +1,19 @@
+.movie-card_poster {
+  max-width: 270px;
+  max-height: 151px;
+  align-self: center;
+}
+
+@media screen and (max-width: 920px) {
+  .movie-card_poster {
+    max-width: 339px;
+    max-height: 190px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .movie-card_poster {
+    max-width: 300px;
+    max-height: 168px;
+  }
+}

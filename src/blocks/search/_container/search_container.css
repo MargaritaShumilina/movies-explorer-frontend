@@ -1,0 +1,10 @@
+.search_container {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 620px) {
+  .search_container {
+    display: block;
+  }
+}

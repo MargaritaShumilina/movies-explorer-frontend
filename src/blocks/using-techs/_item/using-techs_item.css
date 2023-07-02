@@ -1,0 +1,30 @@
+.using-techs_item {
+  margin-right: 10px;
+  width: 90px;
+  height: 60px;
+  background-color: #e8e8e8;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: center;
+  border-radius: 10px;
+  padding-top: 23px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 768px) {
+  .using-techs_item {
+    width: 84px;
+    height: 57px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .using-techs_item {
+    margin-right: 0;
+  }
+}
+
+.using-techs_item:last-child {
+  margin-right: 0;
+}

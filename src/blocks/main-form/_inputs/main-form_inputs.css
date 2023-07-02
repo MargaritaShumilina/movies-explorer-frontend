@@ -1,0 +1,8 @@
+.main-form_inputs {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}

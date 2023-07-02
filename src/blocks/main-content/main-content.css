@@ -1,0 +1,24 @@
+.main-content {
+  margin: 70px calc((100% - 396px) / 2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+@media screen and (max-width: 768px) {
+  .main-content {
+    margin-top: calc((100% - 304px) / 2);
+    margin-bottom: calc((100% - 304px) / 2);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .main-content {
+    margin-top: 56px;
+    margin-bottom: 30px;
+    align-items: center;
+    margin-right: calc((100% - 260px) / 2);
+    margin-left: calc((100% - 260px) / 2);
+  }
+}

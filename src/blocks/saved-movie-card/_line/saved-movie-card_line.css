@@ -1,0 +1,11 @@
+@media screen and (max-width: 768px) {
+  .saved-movie-card_line {
+    margin-bottom: 5px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .saved-movie-card_line {
+    margin-bottom: 4px;
+  }
+}

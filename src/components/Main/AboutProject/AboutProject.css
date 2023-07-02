@@ -1,0 +1,25 @@
+@import url('../../../blocks/about-project/about-project.css');
+
+@import url('../../../blocks/about-project/_title/about-project_title.css');
+
+@import url('../../../blocks/about-project/_block/about-project_block.css');
+
+@import url('../../../blocks/project/project.css');
+
+@import url('../../../blocks/about-project/_description/about-project_description.css');
+
+@import url('../../../blocks/project/_title/project_title.css');
+
+@import url('../../../blocks/project/_description/project_description.css');
+
+@import url('../../../blocks/project-diagram/project-diagram.css');
+
+@import url('../../../blocks/project-diagram/_weeks/project-diagram_weeks.css');
+
+@import url('../../../blocks/project-diagram/_paragraph/project-diagram_paragraph.css');
+
+@import url('../../../blocks/project-diagram/_weeks/__back-end/project-diagram_weeks__back-end.css');
+
+@import url('../../../blocks/project-diagram/_weeks/__front-end/project-diagram_weeks__front-end.css');
+
+@import url('../../../blocks/project-diagram/_name/project-diagram_name.css');
