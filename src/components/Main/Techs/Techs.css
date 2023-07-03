@@ -2,10 +2,10 @@
 
 @import url('../../../blocks/about-techs/about-techs.css');
 
-@import url('../../../blocks/about-techs/_title/about-techs_title.css');
+@import url('../../../blocks/about-techs/__title/about-techs__title.css');
 
-@import url('../../../blocks/about-techs/_description/about-techs_description.css');
+@import url('../../../blocks/about-techs/__description/about-techs__description.css');
 
-@import url('../../../blocks/using-techs/_list/using-techs_list.css');
+@import url('../../../blocks/using-techs/__list/using-techs__list.css');
 
-@import url('../../../blocks/using-techs/_item/using-techs_item.css');
+@import url('../../../blocks/using-techs/__item/using-techs__item.css');

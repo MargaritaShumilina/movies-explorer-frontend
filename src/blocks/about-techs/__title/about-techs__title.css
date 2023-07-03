@@ -1,0 +1,25 @@
+.about-techs__title {
+  font-size: 46px;
+  font-weight: 400;
+  line-height: 60px;
+  text-align: center;
+  padding-top: 89px;
+  padding-bottom: 26px;
+  margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .about-techs__title {
+    padding-top: 78px;
+    padding-bottom: 19px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about-techs__title {
+    font-size: 30px;
+    line-height: 36px;
+    padding-top: 60px;
+    padding-bottom: 24px;
+  }
+}

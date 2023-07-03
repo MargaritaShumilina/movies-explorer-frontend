@@ -10,7 +10,7 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 330px) {
   .portfolio-block {
     margin: 97px calc((100% - 280px) / 2) 106px calc((100% - 294px) / 2);
   }

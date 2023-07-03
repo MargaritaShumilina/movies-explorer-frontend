@@ -5,7 +5,7 @@ import { MoviesList } from '../../../utils/constants';
 function MoviesCardList() {
   return (
     <section className="movie-card-list">
-      <div className="movie-card-list_container">
+      <div className="movie-card-list__container">
         {MoviesList.map((movie, i) => {
           return (
             <MoviesCard

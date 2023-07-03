@@ -19,19 +19,19 @@ function Header(props) {
         <>
           <NavLink to="/" className="main-link-style">
             <img
-              className="logo header_logo"
+              className="logo header__logo"
               src={Logo}
               alt="main logo"
             />
           </NavLink>
-          <nav className="header_navigation">
-            <ul className="header_navigation-list">
-              <li className="header_navigation-item">
+          <nav className="header__navigation">
+            <ul className="header__navigation-list">
+              <li className="header__navigation-item">
                 <NavLink to="/signup" className="main-link-style">
                   Регистрация
                 </NavLink>
               </li>
-              <li className="header_navigation-item button-style">
+              <li className="header__navigation-item button-style">
                 <NavLink
                   to="/signin"
                   className="main-link-style link-button-style"
@@ -47,39 +47,39 @@ function Header(props) {
         <>
           <NavLink to="/" className="main-link-style">
             <img
-              className="header_logo header_logo__login"
+              className="header__logo header__logo_login"
               src={Logo}
               alt="main logo"
             />
           </NavLink>
-          <nav className="header_navigation__login">
-            <ul className="header_navigation-list header_navigation-list__login">
-              <li className="header_navigation-item header_navigation-item__login">
+          <nav className="header__navigation-login">
+            <ul className="header__navigation-list header__navigation-list_login">
+              <li className="header__navigation-item header__navigation-item_login">
                 <NavLink
                   to="/movies"
-                  className="header_navigation-item-link main-link-style"
+                  className="header__navigation-item-link main-link-style"
                 >
                   Фильмы
                 </NavLink>
               </li>
-              <li className="header_navigation-item header_navigation-item__login">
+              <li className="header__navigation-item header__navigation-item_login">
                 <NavLink
                   to="/saved-movies"
-                  className="header_navigation-item-link main-link-style"
+                  className="header__navigation-item-link main-link-style"
                 >
                   Сохраненные фильмы
                 </NavLink>
               </li>
-              <li className="header_navigation-item header_navigation-item__login header_navigation-item__last-login">
+              <li className="header__navigation-item header__navigation-item_login header__navigation-item_last-login">
                 <NavLink
                   to="/profile"
-                  className="header_navigation-item-link main-link-style"
+                  className="header__navigation-item-link main-link-style"
                 >
                   Аккаунт
                 </NavLink>
               </li>
               <img
-                className="profile-page_icon"
+                className="profile-page-icon"
                 src={Icon}
                 alt="Иконка аккаунта"
               />
@@ -92,15 +92,15 @@ function Header(props) {
         <>
           <NavLink to="/" className="main-link-style">
             <img
-              className="header_logo header_logo__login"
+              className="header__logo header__logo_login"
               src={Logo}
               alt="main logo"
             />
           </NavLink>
-          <button className="header_menu" type="button">
+          <button className="header__menu" type="button">
             <img
-              className={`header_menu-burger ${
-                isClick && 'header_menu-burger__opened'
+              className={`header__menu-burger ${
+                isClick && 'header__menu-burger_opened'
               }`}
               src={Menu}
               alt="menu logo"
@@ -108,54 +108,54 @@ function Header(props) {
             />
           </button>
           {isClick && (
-            <div className="header_mobile">
+            <div className="header__mobile">
               <img
                 src={CloseIcon}
                 alt="Закрывающая иконка"
                 onClick={mobileNavigation}
-                className="header_mobile-navigation-icon"
+                className="header__mobile-navigation-icon"
               />
-              <nav className="header_mobile-navigation">
-                <ul className="header_mobile-navigation-list header_mobile-navigation-list__login">
-                  <div className="header_mobile-navigation-page">
-                    <li className="header_mobile-navigation-item">
+              <nav className="header__mobile-navigation">
+                <ul className="header__mobile-navigation-list header__mobile-navigation-list_login">
+                  <div className="header__mobile-navigation-page">
+                    <li className="header__mobile-navigation-item">
                       <NavLink
                         to="/"
-                        className="header_mobile-navigation-link main-link-style"
+                        className="header__mobile-navigation-link main-link-style"
                       >
                         Главная
                       </NavLink>
                     </li>
 
-                    <li className="header_mobile-navigation-item">
+                    <li className="header__mobile-navigation-item">
                       <NavLink
                         to="/movies"
-                        className="header_mobile-navigation-link main-link-style"
+                        className="header__mobile-navigation-link main-link-style"
                       >
                         Фильмы
                       </NavLink>
                     </li>
 
-                    <li className="header_mobile-navigation-item header_mobile-navigation-last-item-menu">
+                    <li className="header__mobile-navigation-item header__mobile-navigation-last-item-menu">
                       <NavLink
                         to="/saved-movies"
-                        className="header_mobile-navigation-link main-link-style"
+                        className="header__mobile-navigation-link main-link-style"
                       >
                         Сохраненные фильмы
                       </NavLink>
                     </li>
                   </div>
-                  <div className="header_mobile-navigation-profile">
+                  <div className="header__mobile-navigation-profile">
                     <NavLink
                       to="/profile"
-                      className="header_mobile-navigation-link main-link-style"
+                      className="header__mobile-navigation-link main-link-style"
                     >
-                      <li className="header_mobile-navigation-item header_mobile-navigation-item__last">
+                      <li className="header__mobile-navigation-item header__mobile-navigation-item_last">
                         Аккаунт
                       </li>
                     </NavLink>
                     <img
-                      className="profile-page_icon"
+                      className="profile-page-icon"
                       src={Icon}
                       alt="Иконка аккаунта"
                     />

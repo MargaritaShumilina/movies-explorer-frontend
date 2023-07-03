@@ -5,9 +5,9 @@ function Promo() {
   return (
     <>
       <section className="banner">
-        <div className="banner_title-container">
+        <div className="banner__title-container">
           <h1
-            className="banner_title"
+            className="banner__title"
             style={{ backgroundImage: `url(${praktikum})` }}
           >
             Учебный проект студента факультета Веб-разработки.
@@ -15,8 +15,8 @@ function Promo() {
         </div>
       </section>
       <nav className="main-navigation">
-        <ul className="main-navigation_list">
-          <li className="main-navigation_item">
+        <ul className="main-navigation__list">
+          <li className="main-navigation__item">
             <a
               href="#about-project"
               className="main-link-style link-button-style"
@@ -24,12 +24,12 @@ function Promo() {
               О проекте
             </a>
           </li>
-          <li className="main-navigation_item">
+          <li className="main-navigation__item">
             <a href="#techs" className="main-link-style link-button-style">
               Технологии
             </a>
           </li>
-          <li className="main-navigation_item">
+          <li className="main-navigation__item">
             <a href="#about-me" className="main-link-style link-button-style">
               Студент
             </a>

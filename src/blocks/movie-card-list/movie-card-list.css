@@ -16,8 +16,7 @@
   }
 }
 
-
-@media screen and (max-width: 620px) {
+@media screen and (max-width: 730px) {
   .movie-card-list {
     margin-left: calc((100% - 300px) / 2);
     margin-right: calc((100% - 300px) / 2);

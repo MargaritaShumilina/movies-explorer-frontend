@@ -1,7 +1,7 @@
-@import url('../../../blocks/movie-card/_delete/movie-card_delete.css');
+@import url('../../../blocks/movie-card/__delete/movie-card__delete.css');
 
-@import url('../../../blocks/saved-movie-card/_information/saved-movie-card_information.css');
+@import url('../../../blocks/saved-movie-card/__information/saved-movie-card__information.css');
 
-@import url('../../../blocks/saved-movie-card/_name/saved-movie-card_name.css');
+@import url('../../../blocks/saved-movie-card/__name/saved-movie-card__name.css');
 
-@import url('../../../blocks/saved-movie-card/_line/saved-movie-card_line.css');
+@import url('../../../blocks/saved-movie-card/__line/saved-movie-card__line.css');

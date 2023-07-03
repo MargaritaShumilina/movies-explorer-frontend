@@ -1,0 +1,8 @@
+.profile__error {
+  color: #ff004c;
+  font-size: 12px;
+  line-height: 15px;
+  visibility: visible;
+  text-align: center;
+  margin-bottom: 20px;
+}

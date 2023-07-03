@@ -1,0 +1,19 @@
+.footer__item {
+  margin-right: 20px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 450px) {
+  .footer__item {
+    margin-right: 0;
+    margin-bottom: 12px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
+.footer__item:first-child {
+  margin-right: 0;
+}

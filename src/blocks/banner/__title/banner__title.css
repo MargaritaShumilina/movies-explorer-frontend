@@ -1,0 +1,37 @@
+.banner__title {
+  margin: auto;
+  text-align: center;
+  font-size: 46px;
+  line-height: 58px;
+  font-weight: 400;
+  background-repeat: no-repeat;
+  background-size: 320px;
+  background-position: center;
+  padding-bottom: 102px;
+  padding-top: 102px;
+}
+
+@media screen and (max-width: 768px) {
+  .banner__title {
+    padding-bottom: 103px;
+  }
+}
+
+@media screen and (max-width: 615px) {
+  .banner__title {
+    font-size: 31px;
+    line-height: 39px;
+    padding-bottom: 122px;
+    padding-top: 119px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .banner__title {
+    padding-right: calc((100% - 317px) / 2);
+    padding-left: calc((100% - 317px) / 2);
+    background-size: 248px;
+    padding-bottom: 121px;
+    padding-top: 108px;
+  }
+}

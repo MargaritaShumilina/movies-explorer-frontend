@@ -1,0 +1,9 @@
+.saved-movie-card__information {
+  margin: 15px 8px 14px 12px;
+}
+
+@media screen and (max-width: 768px) {
+  .saved-movie-card__information {
+    margin: 13px 9px 15px 12px;
+  }
+}

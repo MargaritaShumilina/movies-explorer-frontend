@@ -1,0 +1,11 @@
+.movie-card__delete {
+  width: 9px;
+  height: 9px;
+  padding: 6px;
+}
+
+@media screen and (max-width: 320px) {
+  .movie-card__delete {
+    padding: 4px;
+  }
+}

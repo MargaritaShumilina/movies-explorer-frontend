@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 function NoPageBlock() {
   return (
     <section className="not-found">
-      <p className="not-found_status">404</p>
-      <p className="not-found_description">Страница не найдена</p>
-      <NavLink to="/" className="not-found_navigate-link main-link-style">
+      <p className="not-found__status">404</p>
+      <p className="not-found__description">Страница не найдена</p>
+      <NavLink to="/" className="not-found__navigate-link main-link-style">
         Назад
       </NavLink>
     </section>

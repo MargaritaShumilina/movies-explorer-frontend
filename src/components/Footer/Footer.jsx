@@ -3,29 +3,29 @@ import './Footer.css';
 function Footer() {
   return (
     <footer className="footer">
-      <p className="footer_label">
+      <p className="footer__label">
         Учебный проект Яндекс.Практикум х BeatFilm.
       </p>
-      <div className="footer_container">
-        <p className="footer_copywrite">&copy; 2023</p>
-        <nav className="footer_navigation">
-          <ul className="footer_list">
-            <li className="footer_item">
+      <div className="footer__container">
+        <p className="footer__copywrite">&copy; 2023</p>
+        <nav className="footer__navigation">
+          <ul className="footer__list">
+            <li className="footer__item">
               <a
                 href="https://github.com/"
-                target="_blank"
+                target="__blank"
                 rel="noreferrer"
-                className="footer_link main-link-style"
+                className="footer__link main-link-style"
               >
                 Github
               </a>
             </li>
-            <li className="footer_item">
+            <li className="footer__item">
               <a
                 href="https://practicum.yandex.ru/"
-                target="_blank"
+                target="__blank"
                 rel="noreferrer"
-                className="footer_link main-link-style"
+                className="footer__link main-link-style"
               >
                 Яндекс.Практикум
               </a>

@@ -6,7 +6,7 @@ import { SavedMoviesList } from '../../../utils/constants';
 function SavedMoviesCardList() {
   return (
     <section className="movie-card-list saved-movie-card-list">
-      <div className="movie-card-list_container">
+      <div className="movie-card-list__container">
         {SavedMoviesList.map((movie, i) => {
           return (
             <SavedMoviesCard

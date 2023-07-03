@@ -1,0 +1,12 @@
+.portfolio__arrow {
+  margin-right: 6px;
+}
+
+@media screen and (max-width: 615px) {
+  .portfolio__arrow {
+    width: 10px;
+    height: 10px;
+    padding-bottom: 4px;
+    margin-right: 0;
+  }
+}

@@ -19,34 +19,34 @@ function ProfileBlock(props) {
   console.log(isButton);
   return (
     <section className="profile">
-      <div className="profile_block">
-        <h1 className="profile_title">Привет, {props.userName}!</h1>
-        <div className="profile_form-block">
-          <form className="profile_form">
-            <fieldset className="profile_inputs">
-              <div className="profile_inputs-style">
+      <div className="profile__block">
+        <h1 className="profile__title">Привет, {props.userName}!</h1>
+        <div className="profile__form-block">
+          <form className="profile__form">
+            <fieldset className="profile__inputs">
+              <div className="profile__inputs-style">
                 <input
                   type="text"
-                  className="profile_input"
+                  className="profile__input"
                   placeholder="Имя"
                   required
                   id="form-profile-name"
                   maxLength="40"
                   minLength="5"
                 />
-                <p className="profile_paragraph">Виталий</p>
+                <p className="profile__paragraph">Виталий</p>
               </div>
-              <div className="profile_inputs-style">
+              <div className="profile__inputs-style">
                 <input
                   type="email"
-                  className="profile_input"
+                  className="profile__input"
                   placeholder="E-mail"
                   required
                   id="form-profile-email"
                   maxLength="40"
                   minLength="5"
                 />
-                <p className="profile_paragraph">pochta@yandex.ru</p>
+                <p className="profile__paragraph">pochta@yandex.ru</p>
               </div>
             </fieldset>
           </form>
@@ -54,33 +54,33 @@ function ProfileBlock(props) {
         {!edit && (
           <>
             <button
-              className="profile_edit main-link-style"
+              className="profile__edit main-link-style"
               type="submit"
               onClick={handleEdit}
             >
               Редактировать
             </button>
 
-            <div className="profile_link-container">
-              <NavLink to="/signin" className="profile_link main-link-style">
+            <div className="profile__link-container">
+              <NavLink to="/signin" className="profile__link main-link-style">
                 Выйти из аккаунта
               </NavLink>
             </div>
           </>
         )}
         {edit && (
-          <div className="profile_error-block">
+          <div className="profile__error-block">
             <p
-              className={`profile_error__invisible ${
-                isButton ? 'profile_error' : ''
+              className={`profile__error_invisible ${
+                isButton ? 'profile__error' : ''
               }`}
             >
               При обновлении профиля произошла ошибка.
             </p>
             <button
-              className={`profile_button ${
+              className={`profile__button ${
                 !isButton ? 'main-button-style' : ''
-              } ${isButton ? 'profile_button__disabled' : ''}`}
+              } ${isButton ? 'profile__button_disabled' : ''}`}
               type="submit"
               onClick={handleError}
               disabled={disabled}

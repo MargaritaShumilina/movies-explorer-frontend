@@ -2,22 +2,22 @@
 
 @import url('../../../blocks/about-me/about-me.css');
 
-@import url('../../../blocks/about-me/_information/about-me_information.css');
+@import url('../../../blocks/about-me/__information/about-me__information.css');
 
-@import url('../../../blocks/about-me/_title/about-me_title.css');
+@import url('../../../blocks/about-me/__title/about-me__title.css');
 
-@import url('../../../blocks/about-me/_subtitle/about-me_subtitle.css');
+@import url('../../../blocks/about-me/__subtitle/about-me__subtitle.css');
 
-@import url('../../../blocks/about-me/_description/about-me_description.css');
+@import url('../../../blocks/about-me/__description/about-me__description.css');
 
-@import url('../../../blocks/about-me/_portfolio/about-me_portfolio.css');
+@import url('../../../blocks/about-me/__portfolio/about-me__portfolio.css');
 
-@import url('../../../blocks/about-me/_img/about-me_img.css');
+@import url('../../../blocks/about-me/__img/about-me__img.css');
 
-@import url('../../../blocks/portfolio/_title/portfolio_title.css');
+@import url('../../../blocks/portfolio/__title/portfolio__title.css');
 
-@import url('../../../blocks/portfolio/_list/portfolio_list.css');
+@import url('../../../blocks/portfolio/__list/portfolio__list.css');
 
-@import url('../../../blocks/portfolio/_item/portfolio_item.css');
+@import url('../../../blocks/portfolio/__item/portfolio__item.css');
 
-@import url('../../../blocks/portfolio/_arrow/portfolio_arrow.css');
+@import url('../../../blocks/portfolio/__arrow/portfolio__arrow.css');

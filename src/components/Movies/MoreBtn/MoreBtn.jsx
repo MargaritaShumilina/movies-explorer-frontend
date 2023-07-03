@@ -2,8 +2,8 @@ import './MoreBtn.css';
 
 function MoreBtn() {
   return (
-    <div className="movie-card-list_button-block">
-      <button className="movie-card-list_more">Ещё</button>
+    <div className="movie-button-block">
+      <button className="movie-button-block__more">Ещё</button>
     </div>
   );
 }

@@ -1,0 +1,16 @@
+.header__mobile-navigation-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 775px;
+}
+
+@media screen and (max-width: 520px) {
+  .header__mobile-navigation-list {
+    height: 588px;
+  }
+}

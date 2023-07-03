@@ -1,9 +1,0 @@
-.header_mobile-navigation-last-item-menu {
-  margin-bottom: 313%;
-}
-
-@media screen and (max-width: 520px) {
-  .header_mobile-navigation-last-item-menu {
-    margin-bottom: 0;
-  }
-}

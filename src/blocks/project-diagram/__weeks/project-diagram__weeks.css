@@ -1,0 +1,11 @@
+.project-diagram__weeks {
+  text-align: center;
+  margin: 0;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .project-diagram__weeks {
+    margin-bottom: 0;
+  }
+}
