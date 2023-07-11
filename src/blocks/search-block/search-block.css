@@ -1,0 +1,20 @@
+.search-block {
+  margin: 0 70px 10px;
+  padding-bottom: 71px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+@media screen and (max-width: 768px) {
+  .search-block {
+    margin: 11px 28px 10px 30px;
+    padding-bottom: 112px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .search-block {
+    margin-right: calc((100% - 300px) / 2);
+    margin-left: calc((100% - 300px) / 2);
+    padding-bottom: 111px;
+  }
+}

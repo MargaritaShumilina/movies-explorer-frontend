@@ -1,0 +1,14 @@
+.main-form__labels {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  margin: 4px 0 0;
+  color: #a0a0a0;
+}
+
+@media screen and (max-width: 450px) {
+  .main-form__label {
+    font-size: 10px;
+    line-height: 12px;
+  }
+}

@@ -1,0 +1,11 @@
+.auth-logo {
+  width: 38px;
+  height: 38px;
+  margin-bottom: 36px;
+}
+
+@media screen and (max-width: 450px) {
+  .auth-logo {
+    margin-bottom: 47px;
+  }
+}

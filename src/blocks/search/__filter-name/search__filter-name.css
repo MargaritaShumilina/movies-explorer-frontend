@@ -1,0 +1,12 @@
+.search__filter-name {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+@media screen and (max-width: 620px) {
+  .search__filter-name {
+    font-size: 11px;
+  }
+}

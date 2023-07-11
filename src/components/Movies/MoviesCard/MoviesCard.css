@@ -1,0 +1,15 @@
+@import url('../../../blocks/movie-card/movie-card.css');
+
+@import url('../../../blocks/movie-card/__poster/movie-card__poster.css');
+
+@import url('../../../blocks/movie-card/__save/movie-card__save.css');
+
+@import url('../../../blocks/movie-card/__information/movie-card__information.css');
+
+@import url('../../../blocks/movie-card/__line/movie-card__line.css');
+
+@import url('../../../blocks/movie-card/__name/movie-card__name.css');
+
+@import url('../../../blocks/movie-card/__time/movie-card__time.css');
+
+@import url('../../../blocks/invisible-button/invisible-button.css');

@@ -1,0 +1,25 @@
+@import url('../../blocks/main-content/main-content.css');
+
+@import url('../../blocks/auth-logo/auth-logo.css');
+
+@import url('../../blocks/welcom-header/welcom-header.css');
+
+@import url('../../blocks/welcom-header/__heading/welcom-header__heading.css');
+
+@import url('../../blocks/main-form/main-form.css');
+
+@import url('../../blocks/main-form/__inputs/main-form__inputs.css');
+
+@import url('../../blocks/main-form/__labels/main-form__labels.css');
+
+@import url('../../blocks/main-form/__input/main-form__input.css');
+
+@import url('../../blocks/popup-input-error/popup-input-error.css');
+
+@import url('../../blocks/main-form/__button/main-form__button.css');
+
+@import url('../../blocks/another-way-form/another-way-form.css');
+
+@import url('../../blocks/main-button-style/main-button-style.css');
+
+@import url('../../blocks/last-form-label/last-form-label.css');

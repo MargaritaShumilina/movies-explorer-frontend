@@ -1,0 +1,15 @@
+.another-way-form {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  color: #a0a0a0;
+  align-self: center;
+  margin: 0;
+}
+
+@media screen and (max-width: 450px) {
+  .another-way-form {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

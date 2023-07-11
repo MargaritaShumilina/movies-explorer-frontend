@@ -1,0 +1,28 @@
+.project {
+  margin-right: 55px;
+  margin-bottom: 95px;
+}
+
+@media screen and (max-width: 768px) {
+  .project {
+    margin-right: 37px;
+    margin-bottom: 78px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .project {
+    margin-right: 0;
+    margin-bottom: 38px;
+  }
+}
+
+.project:last-child {
+  margin-right: 0;
+}
+
+@media screen and (max-width: 320px) {
+  .project:last-child {
+    margin-bottom: 49px;
+  }
+}

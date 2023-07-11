@@ -1,0 +1,16 @@
+.search__border {
+  border-right: 1px solid #cbcbcb;
+  margin-right: 79px;
+}
+
+@media screen and (max-width: 768px) {
+  .search__border {
+    margin-right: 70px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .search__border {
+    border: none;
+  }
+}

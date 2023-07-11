@@ -1,0 +1,9 @@
+.main-link-style {
+  text-decoration: none;
+  color: #000;
+}
+
+.main-link-style:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}

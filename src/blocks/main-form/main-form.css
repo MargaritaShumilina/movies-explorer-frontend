@@ -1,0 +1,10 @@
+.main-form {
+  width: 396px;
+}
+
+@media screen and (max-width: 450px) {
+  .main-form {
+    width: 260px;
+    box-sizing: border-box;
+  }
+}

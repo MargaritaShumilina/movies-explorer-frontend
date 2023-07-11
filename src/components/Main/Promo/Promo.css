@@ -1,0 +1,11 @@
+@import url('../../../blocks/banner/banner.css');
+
+@import url('../../../blocks/banner/__title-container/banner__title-container.css');
+
+@import url('../../../blocks/banner/__title/banner__title.css');
+
+@import url('../../../blocks/main-navigation/main-navigation.css');
+
+@import url('../../../blocks/main-navigation/__list/main-navigation__list.css');
+
+@import url('../../../blocks/main-navigation/__item/main-navigation__item.css');

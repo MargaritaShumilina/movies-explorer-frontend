@@ -1,0 +1,11 @@
+.button-style {
+  background-color: #000;
+  border-radius: 3px;
+  padding: 8px 20px;
+}
+
+@media screen and (max-width: 320px) {
+  .button-style {
+    padding: 6px 12px;
+  }
+}

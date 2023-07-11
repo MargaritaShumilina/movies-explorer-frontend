@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 70px 18px;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding-right: 30px;
+    padding-left: 30px;
+    align-items: unset;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    padding-right: 14px;
+    padding-left: 14px;
+    align-items: unset;
+  }
+}

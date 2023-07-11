@@ -1,0 +1,7 @@
+@import url('../../blocks/not-found/not-found.css');
+
+@import url('../../blocks/not-found/__status/not-found__status.css');
+
+@import url('../../blocks/not-found/__description/not-found__description.css');
+
+@import url('../../blocks/not-found/__navigate-link/not-found__navigate-link.css');

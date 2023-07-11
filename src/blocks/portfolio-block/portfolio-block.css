@@ -1,0 +1,17 @@
+.portfolio-block {
+  margin: 112px 70px 163px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio-block {
+    margin: 89px 50px 129px 52px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .portfolio-block {
+    margin: 97px calc((100% - 280px) / 2) 106px calc((100% - 294px) / 2);
+  }
+}

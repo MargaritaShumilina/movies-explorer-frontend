@@ -1,0 +1,17 @@
+.main-navigation__item {
+  margin-right: 40px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+@media screen and (max-width: 320px) {
+  .main-navigation__item {
+    font-size: 11px;
+    margin-right: 24px;
+  }
+}
+
+.main-navigation__item:last-child {
+  margin-right: 0;
+}

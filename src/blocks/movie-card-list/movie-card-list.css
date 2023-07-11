@@ -1,0 +1,25 @@
+.movie-card-list {
+  margin: 80px calc((100% - 1140px) / 2);
+}
+
+@media screen and (max-width: 1230px) {
+  .movie-card-list {
+    margin-left: calc((100% - 870px) / 2);
+    margin-right: calc((100% - 870px) / 2);
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .movie-card-list {
+    margin-left: calc((100% - 705px) / 2);
+    margin-right: calc((100% - 705px) / 2);
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .movie-card-list {
+    margin-left: calc((100% - 300px) / 2);
+    margin-right: calc((100% - 300px) / 2);
+    margin-top: 51px;
+  }
+}

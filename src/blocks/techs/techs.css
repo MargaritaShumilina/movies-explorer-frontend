@@ -1,0 +1,22 @@
+.techs {
+  background-color: #f5f5f5;
+  padding: 100px 70px;
+}
+
+@media screen and (max-width: 768px) {
+  .techs {
+    padding: 92px 50px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .techs {
+    padding: 89px calc((100% - 292px) / 2);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .techs {
+    padding: 48px calc((100% - 282px) / 2);
+  }
+}

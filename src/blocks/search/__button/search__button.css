@@ -1,0 +1,25 @@
+.search__button {
+  background-color: #000;
+  border: none;
+  width: 34px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 48px;
+  padding: 17px;
+  margin-right: 19px;
+}
+
+@media screen and (max-width: 768px) {
+  .search__button {
+    margin-right: 18px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .search__button {
+    top: 13px;
+    position: absolute;
+    right: 16px;
+    margin-right: 0;
+  }
+}

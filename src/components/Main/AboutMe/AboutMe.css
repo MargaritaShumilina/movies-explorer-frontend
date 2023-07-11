@@ -1,0 +1,23 @@
+@import url('../../../blocks/portfolio-block/portfolio-block.css');
+
+@import url('../../../blocks/about-me/about-me.css');
+
+@import url('../../../blocks/about-me/__information/about-me__information.css');
+
+@import url('../../../blocks/about-me/__title/about-me__title.css');
+
+@import url('../../../blocks/about-me/__subtitle/about-me__subtitle.css');
+
+@import url('../../../blocks/about-me/__description/about-me__description.css');
+
+@import url('../../../blocks/about-me/__portfolio/about-me__portfolio.css');
+
+@import url('../../../blocks/about-me/__img/about-me__img.css');
+
+@import url('../../../blocks/portfolio/__title/portfolio__title.css');
+
+@import url('../../../blocks/portfolio/__list/portfolio__list.css');
+
+@import url('../../../blocks/portfolio/__item/portfolio__item.css');
+
+@import url('../../../blocks/portfolio/__arrow/portfolio__arrow.css');
