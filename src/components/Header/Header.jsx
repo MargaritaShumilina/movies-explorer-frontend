@@ -15,14 +15,10 @@ function Header(props) {
 
   return (
     <section className="header">
-      {!props.login && (
+      {!props.matches && !props.loggedIn && (
         <>
           <NavLink to="/" className="main-link-style">
-            <img
-              className="logo header__logo"
-              src={Logo}
-              alt="main logo"
-            />
+            <img className="logo header__logo" src={Logo} alt="main logo" />
           </NavLink>
           <nav className="header__navigation">
             <ul className="header__navigation-list">
@@ -43,7 +39,7 @@ function Header(props) {
           </nav>
         </>
       )}
-      {!props.matches && props.login && (
+      {!props.matches && props.loggedIn && (
         <>
           <NavLink to="/" className="main-link-style">
             <img
@@ -88,7 +84,7 @@ function Header(props) {
         </>
       )}
 
-      {props.matches && props.login && (
+      {props.matches && props.loggedIn && (
         <>
           <NavLink to="/" className="main-link-style">
             <img

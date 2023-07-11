@@ -7,10 +7,10 @@ import MoreBtn from '../Movies/MoreBtn/MoreBtn';
 function Movies(props) {
   return (
     <>
-      <Header login={props.login} matches={props.matches} />
-      <SearchForm />
-      <MoviesCardList />
-      <MoreBtn />
+      <Header loggedIn={props.loggedIn} matches={props.matches} />
+      <SearchForm handlerSearchForm={props.handleSearch} />
+      <MoviesCardList isLoading={props.isLoading} />
+      {/* <MoreBtn /> */}
       <Footer />
     </>
   );

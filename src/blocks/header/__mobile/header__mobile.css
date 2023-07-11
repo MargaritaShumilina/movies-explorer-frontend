@@ -1,5 +1,5 @@
 .header__mobile {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   padding: 159px 160px 92px;

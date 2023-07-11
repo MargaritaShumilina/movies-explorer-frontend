@@ -23,3 +23,5 @@
 @import url('../../../blocks/search/__short-films-checkbox/search__short-films-checkbox.css');
 
 @import url('../../../blocks/search/__short-films-filter/search__short-films-filter.css');
+
+@import url('../../../blocks/error-search/error-search.css');

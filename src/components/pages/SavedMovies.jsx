@@ -6,7 +6,7 @@ import SavedMoviesCardList from '../SavedMovies/SavedMoviesCardList/SavedMoviesC
 function SavedMovies(props) {
   return (
     <>
-      <Header login={props.login} matches={props.matches} />
+      <Header loggedIn={props.loggedIn} matches={props.matches} />
       <SearchForm />
       <SavedMoviesCardList />
       <Footer />
