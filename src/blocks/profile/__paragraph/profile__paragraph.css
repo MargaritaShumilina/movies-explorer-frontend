@@ -4,3 +4,7 @@
   line-height: 13px;
   color: #000;
 }
+
+.profile__paragraph_invis {
+  visibility: hidden;
+}

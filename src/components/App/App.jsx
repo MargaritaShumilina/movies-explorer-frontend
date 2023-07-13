@@ -12,8 +12,14 @@ import Profile from '../pages/Profile';
 import getInitialFilms from '../../utils/MoviesApi';
 import Preloader from '../Movies/Preloader/Preloader';
 
-import { register, authorize, getContent } from '../../utils/MainApi';
+import {
+  register,
+  authorize,
+  getContent,
+  userInformationForSave,
+} from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { SearchContext } from '../../contexts/SearchContext';
 
 function App() {
   const [matches, setMatches] = useState(false);
@@ -42,14 +48,15 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [searchFilms, setSearchFilms] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState('');
 
   const [successful, setSuccessful] = useState(false);
 
   const navigate = useNavigate();
 
-  const [isTokenChecked, setIsTokenChecked] = useState(false);
+  const [isTokenChecked, setIsTokenChecked] = useState(true);
 
   //работает, но не записывает
   useEffect(() => {
@@ -62,25 +69,25 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (isTokenChecked) {
+      <Preloader />;
+    }
     setLoggedIn(false);
     tokenCheck();
-  });
+  }, []);
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      setLoggedIn(true);
+    if (jwt && jwt !== 'undefined') {
       getContent(jwt)
         .then((res) => {
-          console.log(res);
           if (res) {
+            setLoggedIn(true);
             setCurrentUser(res);
-            console.log(res);
             navigate('/movies', { replace: true });
-          } else {
-            <Preloader />;
           }
         })
+        .finally(!isTokenChecked)
         .catch((err) => console.log(err));
     }
   };
@@ -100,6 +107,20 @@ function App() {
           navigate('/signin', { replace: true });
         }
       })
+      .then(() => {
+        authorize(email, password)
+          .then((res) => {
+            if (res) {
+              setLoggedIn(true);
+              localStorage.setItem('jwt', res.token);
+              navigate('/movies', { replace: true });
+            }
+          })
+          .catch((err) => {
+            setSuccessful(false);
+            console.log(err);
+          });
+      })
       .catch((err) => {
         setSuccessful(false);
         console.log(err);
@@ -111,7 +132,6 @@ function App() {
       .then((res) => {
         if (res) {
           setLoggedIn(true);
-          // setUserData(email);
           localStorage.setItem('jwt', res.token);
           navigate('/movies', { replace: true });
         }
@@ -122,58 +142,75 @@ function App() {
       });
   }
 
+  const handleUpdateUser = (data) => {
+    console.log(data);
+
+    userInformationForSave(data.name, data.email)
+      .then(({ name, email }) => setCurrentUser({ name, email }))
+      .catch((e) => console.log(e));
+  };
+
+  const handleSearch = (data) => {
+    console.log('111');
+    setSearchFilms(data);
+  };
+
   return (
     <CurrentUserContext.Provider value={{ currentUser }}>
-      <Routes>
-        <Route
-          path="/"
-          element={<Main loggedIn={loggedIn} matches={matchesDevice} />}
-        />
-        <Route
-          path="/signup"
-          element={
-            <Register handleRegistrationClick={handleRegistrationClick} />
-          }
-        />
-        <Route
-          path="/signin"
-          element={<Login handleLoginClick={handleLoginClick} />}
-        />
-        <Route
-          path="/movies"
-          element={
-            <ProtectedRouteElement
-              element={Movies}
-              loggedIn={loggedIn}
-              matches={matchesDevice}
-              films={films}
-              isLoading={isLoading}
-            />
-          }
-        />
-        <Route
-          path="/saved-movies"
-          element={
-            <ProtectedRouteElement
-              element={SavedMovies}
-              loggedIn={loggedIn}
-              matches={matchesDevice}
-            />
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRouteElement
-              element={Profile}
-              loggedIn={loggedIn}
-              userName="Виталий"
-              matches={matchesDevice}
-            />
-          }
-        />
-        <Route path="*" element={<NoPage />} />
-      </Routes>
+      <SearchContext.Provider value={{ searchFilms }}>
+        <Routes>
+          <Route
+            path="/"
+            element={<Main loggedIn={loggedIn} matches={matchesDevice} />}
+          />
+          <Route
+            path="/signup"
+            element={
+              <Register handleRegistrationClick={handleRegistrationClick} />
+            }
+          />
+          <Route
+            path="/signin"
+            element={<Login handleLoginClick={handleLoginClick} />}
+          />
+          <Route
+            path="/movies"
+            element={
+              <ProtectedRouteElement
+                element={Movies}
+                loggedIn={loggedIn}
+                matches={matchesDevice}
+                films={films}
+                isLoading={isLoading}
+                handleSearch={handleSearch}
+              />
+            }
+          />
+          <Route
+            path="/saved-movies"
+            element={
+              <ProtectedRouteElement
+                element={SavedMovies}
+                loggedIn={loggedIn}
+                matches={matchesDevice}
+              />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRouteElement
+                element={Profile}
+                loggedIn={loggedIn}
+                matches={matchesDevice}
+                signOut={signOut}
+                onUpdateUser={handleUpdateUser}
+              />
+            }
+          />
+          <Route path="*" element={<NoPage />} />
+        </Routes>
+      </SearchContext.Provider>
     </CurrentUserContext.Provider>
   );
 }

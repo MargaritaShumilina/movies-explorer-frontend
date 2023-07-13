@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { SearchContext } from '../../../contexts/SearchContext';
 
 import Search from '../../../images/search.svg';
 import './SearchForm.css';
@@ -8,25 +9,27 @@ import { useForm } from 'react-hook-form';
 function SearchForm(props) {
   const [filterFilms, setFilterFilms] = useState(true);
   const [search, setSearch] = useState('');
-  const [films, setFilms] = useState([]);
 
+  const { searchFilms } = useContext(SearchContext);
   const shortFilmFilter = () => {
     setFilterFilms(!filterFilms);
+    localStorage.setItem('shortFilm', filterFilms);
   };
 
   function handleChangeSearchInput(e) {
     setSearch(e.target.value);
   }
 
-  function handleSubmitSearch(e) {
-    e.preventDefault();
+  function handleSubmitSearch() {
+    props.handleSearch(search);
+    localStorage.setItem('searchValue', search);
   }
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: 'onSubmit' });
+  } = useForm({ mode: 'onChange' });
 
   return (
     <section className="search-block">
@@ -56,7 +59,8 @@ function SearchForm(props) {
               className="search__button main-button-style"
               type="submit"
               style={{ backgroundImage: `url(${Search})` }}
-              onClick={props.handleSearch}
+              // onClick={props.handleSubmitSearch(e, search)}
+              onSubmit={handleSubmit(handleSubmitSearch)}
             ></button>
           </div>
           <div className="search__short-films-filter">
@@ -64,7 +68,7 @@ function SearchForm(props) {
               onClick={shortFilmFilter}
               id="filterFilms"
               type="checkbox"
-              value="1"
+              value={filterFilms}
               className={`search__short-films-checkbox
                 ${
                   filterFilms

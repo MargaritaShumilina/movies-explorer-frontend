@@ -5,7 +5,10 @@ function Profile(props) {
   return (
     <>
       <Header loggedIn={props.loggedIn} matches={props.matches} />
-      <ProfileBlock userName={props.userName} />
+      <ProfileBlock
+        userName={props.userName}
+        onUpdateUser={props.onUpdateUser}
+      />
     </>
   );
 }

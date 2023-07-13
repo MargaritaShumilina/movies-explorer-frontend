@@ -70,7 +70,7 @@ function RegisterBlock(props) {
                     value: 40,
                     message: 'Максимум 40 символов',
                   },
-                  pattern: /^\[-0-9]/,
+                  // pattern: /^[0-9]/,
                 })}
                 value={name}
                 onChange={handleChangeName}
@@ -90,7 +90,8 @@ function RegisterBlock(props) {
                 id="form-registration-email"
                 {...register('email', {
                   required: 'Поле обязательно к заполению',
-                  pattern: /[a-z0-9]+@[a-z]+\\.{1,1}[a-z]{2,}/,
+                  pattern:
+                    /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
                 })}
                 value={email}
                 onChange={handleChangeEmail}

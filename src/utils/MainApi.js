@@ -1,11 +1,12 @@
 export const BASE_URL = '//api.movie-pro.nomoredomains.rocks';
+// export const BASE_URL = 'http://localhost:3000';
 
 function getResponse(res) {
   if (res.ok) {
     console.log(res);
     return res.json();
   } else {
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return Promise.reject(`Ошибка: ${res.message}`);
   }
 }
 
@@ -40,6 +41,21 @@ export const getContent = (token) => {
       Authorization: `Bearer ${token}`,
     },
   }).then((res) => {
-    getResponse(res);
+    return getResponse(res);
   });
+};
+
+export const userInformationForSave = (name, email) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+    }),
+  }).then((res) => getResponse(res));
 };

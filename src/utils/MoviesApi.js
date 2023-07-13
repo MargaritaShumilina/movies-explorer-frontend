@@ -14,10 +14,9 @@ function getInitialFilms() {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      // Authorization: `Bearer ${token}`,
     },
   }).then((res) => {
-    getResponse(res);
+    return getResponse(res);
   });
 }
 
