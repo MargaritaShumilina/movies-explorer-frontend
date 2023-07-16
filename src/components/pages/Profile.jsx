@@ -8,6 +8,8 @@ function Profile(props) {
       <ProfileBlock
         userName={props.userName}
         onUpdateUser={props.onUpdateUser}
+        signOut={props.signOut}
+        errorMessage={props.errorMessage}
       />
     </>
   );

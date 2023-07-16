@@ -4,32 +4,47 @@ import logo from '../../images/logo.svg';
 
 import { NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function LoginBlock(props) {
+  const { currentUser } = useContext(CurrentUserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [disabled, setDisabled] = useState(true);
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitSuccessful },
     reset,
-  } = useForm({ mode: 'onBlur' });
+  } = useForm({ mode: 'onChange' });
+
+  useEffect(() => {}, [props.errorMessage]);
 
   useEffect(() => {
     reset();
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, props.errorMessage]);
+
+  useEffect(() => {
+    localStorage.removeItem('errorLogin');
+  }, [email, password]);
 
   function handleSubmitLogin() {
     props.handleLoginClick(email, password);
     reset({ email: '', password: '' });
+    if (localStorage.getItem('errorLogin') !== null) {
+      setDisabled(true);
+    }
+    setDisabled(true);
   }
 
   function handleChangeEmail(e) {
+    setDisabled(false);
     setEmail(e.target.value);
   }
 
   function handleChangePassword(e) {
+    setDisabled(false);
     setPassword(e.target.value);
   }
 
@@ -55,8 +70,9 @@ function LoginBlock(props) {
                 placeholder="pochta@yandex.ru"
                 id="form-login-email"
                 {...register('email', {
-                  required: 'Поле обязательно к заполению',
-                  pattern: /^\S+@\S+\.\S+$/,
+                  required: 'Ошибка! Введите корректный Email',
+                  pattern:
+                    /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
                 })}
                 value={email}
                 onChange={handleChangeEmail}
@@ -87,11 +103,15 @@ function LoginBlock(props) {
               )}
             </div>
           </fieldset>
+          <div>
+            <p className="profile__error">{props.errorMessage}</p>
+          </div>
           <button
             className={`main-form__button form-login__button main-button-style ${
-              !isValid ? 'profile__button_disabled' : ''
+              !isValid || disabled ? 'profile__button_disabled' : ''
             }`}
             type="submit"
+            disabled={disabled}
             onSubmit={handleSubmit(handleSubmitLogin)}
           >
             Войти

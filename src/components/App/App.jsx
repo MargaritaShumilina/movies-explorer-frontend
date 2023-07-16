@@ -1,4 +1,5 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRouteElement';
 import Main from '../pages/Main';
@@ -55,18 +56,9 @@ function App() {
   const [successful, setSuccessful] = useState(false);
 
   const navigate = useNavigate();
-
+  const location = useLocation();
   const [isTokenChecked, setIsTokenChecked] = useState(true);
-
-  //работает, но не записывает
-  useEffect(() => {
-    getInitialFilms()
-      .then((arr) => {
-        setFilms(arr);
-        setIsLoading(false);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (isTokenChecked) {
@@ -84,7 +76,7 @@ function App() {
           if (res) {
             setLoggedIn(true);
             setCurrentUser(res);
-            navigate('/movies', { replace: true });
+            navigate(location, { replace: true });
           }
         })
         .finally(!isTokenChecked)
@@ -93,9 +85,9 @@ function App() {
   };
 
   function signOut() {
+    localStorage.removeItem('jwt');
     setLoggedIn(false);
     setUserData('');
-    localStorage.removeItem('jwt');
   }
 
   function handleRegistrationClick(name, email, password) {
@@ -105,25 +97,25 @@ function App() {
           localStorage.setItem('jwt', res.token);
           setSuccessful(true);
           navigate('/signin', { replace: true });
+          console.log(res);
         }
-      })
-      .then(() => {
         authorize(email, password)
           .then((res) => {
             if (res) {
               setLoggedIn(true);
+              setCurrentUser({ name, email });
               localStorage.setItem('jwt', res.token);
               navigate('/movies', { replace: true });
             }
           })
           .catch((err) => {
             setSuccessful(false);
-            console.log(err);
           });
       })
       .catch((err) => {
         setSuccessful(false);
-        console.log(err);
+        setErrorMessage(err);
+        localStorage.setItem('errorRegistration', err);
       });
   }
 
@@ -138,20 +130,29 @@ function App() {
       })
       .catch((err) => {
         setSuccessful(false);
+        setErrorMessage(err);
+        localStorage.setItem('errorLogin', err);
         console.log(err);
       });
   }
 
   const handleUpdateUser = (data) => {
-    console.log(data);
-
     userInformationForSave(data.name, data.email)
       .then(({ name, email }) => setCurrentUser({ name, email }))
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        setErrorMessage(e);
+        localStorage.setItem('error', e);
+      });
   };
 
-  const handleSearch = (data) => {
-    console.log('111');
+  const handleSearch = async (data) => {
+    if (!films.length) {
+      setIsLoading(true);
+      const arr = await getInitialFilms();
+      setFilms(arr);
+      setIsLoading(false);
+    }
     setSearchFilms(data);
   };
 
@@ -166,12 +167,20 @@ function App() {
           <Route
             path="/signup"
             element={
-              <Register handleRegistrationClick={handleRegistrationClick} />
+              <Register
+                handleRegistrationClick={handleRegistrationClick}
+                errorMessage={errorMessage}
+              />
             }
           />
           <Route
             path="/signin"
-            element={<Login handleLoginClick={handleLoginClick} />}
+            element={
+              <Login
+                handleLoginClick={handleLoginClick}
+                errorMessage={errorMessage}
+              />
+            }
           />
           <Route
             path="/movies"
@@ -205,6 +214,7 @@ function App() {
                 matches={matchesDevice}
                 signOut={signOut}
                 onUpdateUser={handleUpdateUser}
+                errorMessage={errorMessage}
               />
             }
           />

@@ -7,8 +7,16 @@ import { getInitialFilms } from '../../../utils/MoviesApi';
 import { useForm } from 'react-hook-form';
 
 function SearchForm(props) {
-  const [filterFilms, setFilterFilms] = useState(true);
+  const [filterFilms, setFilterFilms] = useState(false);
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    //очищает значение search
+    setSearch(searchFilms);
+    setFilterFilms(localStorage.getItem('shortFilm'));
+    //очищает значение movies
+    localStorage.getItem('movies');
+  }, []);
 
   const { searchFilms } = useContext(SearchContext);
   const shortFilmFilter = () => {

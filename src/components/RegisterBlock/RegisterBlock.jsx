@@ -11,7 +11,7 @@ function RegisterBlock(props) {
     handleSubmit,
     formState: { errors, isValid, isSubmitSuccessful },
     reset,
-  } = useForm({ mode: 'onBlur' });
+  } = useForm({ mode: 'onChange' });
 
   useEffect(() => {
     reset();
@@ -20,22 +20,36 @@ function RegisterBlock(props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [disabled, setDisabled] = useState(true);
 
   function handleSubmitRegistration() {
     console.log(name, email, password);
     props.handleRegistrationClick(name, email, password);
     reset({ name: '', email: '', password: '' });
+    if (localStorage.getItem('errorRegistration') !== null) {
+      setDisabled(true);
+    }
+    setDisabled(true);
   }
 
+  useEffect(() => {}, [props.errorMessage]);
+
+  useEffect(() => {
+    localStorage.removeItem('errorRegistration');
+  }, [name, email, password]);
+
   function handleChangeName(e) {
+    setDisabled(false);
     setName(e.target.value);
   }
 
   function handleChangeEmail(e) {
+    setDisabled(false);
     setEmail(e.target.value);
   }
 
   function handleChangePassword(e) {
+    setDisabled(false);
     setPassword(e.target.value);
   }
 
@@ -70,7 +84,7 @@ function RegisterBlock(props) {
                     value: 40,
                     message: 'Максимум 40 символов',
                   },
-                  // pattern: /^[0-9]/,
+                  pattern: /^[A-Za-zА-Яа-яЁё /s -]+$/,
                 })}
                 value={name}
                 onChange={handleChangeName}
@@ -123,11 +137,15 @@ function RegisterBlock(props) {
               )}
             </div>
           </fieldset>
+          <div>
+            <p className="profile__error">{props.errorMessage}</p>
+          </div>
           <button
             className={`main-form__button form-registration__button main-button-style ${
-              !isValid ? 'profile__button_disabled' : ''
+              !isValid || disabled ? 'profile__button_disabled' : ''
             }`}
             type="submit"
+            disabled={disabled}
             onSubmit={handleSubmit(handleSubmitRegistration)}
           >
             Зарегистрироваться

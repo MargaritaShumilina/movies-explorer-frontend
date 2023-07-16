@@ -3,28 +3,38 @@ import { useState } from 'react';
 import './MoviesCard.css';
 import EnableIcon from '../../../images/active-point.svg';
 import Icon from '../../../images/disabled-point.svg';
-import MoreBtn from '../../Movies/MoreBtn/MoreBtn';
+import { putSave } from '../../../utils/MainApi';
+import { convertMinutesToHours } from '../../../utils/convert';
 
-function MoviesCard({ photo, name, time }) {
+function MoviesCard({ photo, name, time, trailerLink, movie }) {
   const [saveFilms, setSaveFilms] = useState(false);
-  const saveFilmButton = () => {
-    setSaveFilms(!saveFilms);
-    
-  };
 
-  const convertMinutesToHours = () => {
-    const hours = Math.floor(time / 60);
-    const remainingMinutes = time % 60;
-    return `${hours}ч ${remainingMinutes}`;
+  const saveFilmButton = (e) => {
+    setSaveFilms(!saveFilms);
+    putSave({
+      country: movie.country,
+      director: movie.director,
+      duration: movie.duration,
+      year: movie.year,
+      description: movie.description,
+      image: `https://api.nomoreparties.co${movie.image.url}`,
+      trailerLink: movie.trailerLink,
+      thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+      movieId: movie.id,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+    });
   };
 
   return (
     <section className="movie-card">
-      <img
-        src={photo}
-        alt="Постер фильма Тест"
-        className="movie-card__poster"
-      />
+      <a href={trailerLink} target="_blank">
+        <img
+          src={photo}
+          alt="Постер фильма Тест"
+          className="movie-card__poster"
+        />
+      </a>
       <div className="movie-card__information">
         <div className="movie-card__line">
           <p className="movie-card__name">{name}</p>
@@ -37,7 +47,7 @@ function MoviesCard({ photo, name, time }) {
             />
           </button>
         </div>
-        <p className="movie-card__time">{convertMinutesToHours()}</p>
+        <p className="movie-card__time">{convertMinutesToHours(time)}</p>
       </div>
     </section>
   );
