@@ -15,6 +15,8 @@ function MoviesCardList(props) {
   const [cardCount, setCardCount] = useState(12);
   const [loadCount, setLoadCount] = useState(3);
 
+  const [noFilmsFound, setNoFilmsFound] = useState(false);
+
   const incrementPage = () => {
     setCardCount((prevCount) => prevCount + loadCount);
   };
@@ -41,37 +43,34 @@ function MoviesCardList(props) {
     };
   }, []);
 
-  // для отслеживания фильтрации
   useEffect(() => {
-    const isShortFilm = localStorage.getItem('shortFilm') === 'true';
-    setShortFilm(isShortFilm);
-  }, [shortFilm]);
-
-  const loadingFilms = () => {
-    let filteredFilms = props.films.filter((movie) => {
-      if (!searchFilms.trim()) {
-        return false;
+    window.addEventListener('error', (e) => {
+      if (e.message === 'ResizeObserver loop limit exceeded') {
+        const resizeObserverErrDiv = document.getElementById(
+          'webpack-dev-server-client-overlay-div'
+        );
+        const resizeObserverErr = document.getElementById(
+          'webpack-dev-server-client-overlay'
+        );
+        if (resizeObserverErr) {
+          resizeObserverErr.setAttribute('style', 'display: none');
+        }
+        if (resizeObserverErrDiv) {
+          resizeObserverErrDiv.setAttribute('style', 'display: none');
+        }
       }
-      return (
-        movie.nameRU.toLowerCase() || movie.nameEN.toLowerCase()
-      ).includes(searchFilms.toLowerCase());
     });
-    //Не работает фильтрация короткометражек
-    if (shortFilm) {
-      filteredFilms = filteredFilms.filter((movie) => movie.duration < 40);
-      console.log(filteredFilms);
-    }
-
-    localStorage.setItem('movies', filteredFilms);
-    return filteredFilms;
-  };
+  }, []);
 
   const moviesByPage = () => {
-    let filmsPagination = loadingFilms().slice(0, cardCount * currentPage);
+    if (props.films.length === 0) {
+      return [];
+    }
+    let filmsPagination = props.films.slice(0, cardCount * currentPage);
     return filmsPagination;
   };
 
-  const [totalMovies, setTotalMovies] = useState(loadingFilms().length + 1);
+  const [totalMovies, setTotalMovies] = useState(props.films.length + 1);
   const [showLoadButton, setShowLoadButton] = useState(false);
 
   useEffect(() => {
@@ -79,19 +78,25 @@ function MoviesCardList(props) {
   }, [cardCount, totalMovies, shortFilm]);
 
   useEffect(() => {
-    const filteredFilms = loadingFilms();
-
-    setTotalMovies(filteredFilms.length);
+    setTotalMovies(props.films.length);
   }, [searchFilms, shortFilm]);
+
+  useEffect(() => {
+    setNoFilmsFound(moviesByPage().length === 0 && !props.isLoading);
+  }, [moviesByPage, props.isLoading]);
 
   return (
     <>
       <SearchForm
         handleSubmitSearch={props.handleSubmitSearch}
+        searchString={props.searchString}
         handleSearch={props.handleSearch}
       />
       <section className="movie-card-list">
         <div className="movie-card-list__container">
+          {noFilmsFound ? (
+            <p className="movie-card-list__no-films">Ничего не найдено :(</p>
+          ) : null}
           {props.isLoading ? (
             <Preloader />
           ) : (
@@ -100,10 +105,12 @@ function MoviesCardList(props) {
                 <MoviesCard
                   movie={movie}
                   photo={`https://api.nomoreparties.co${movie.image.url}`}
-                  key={movie.id}
+                  id={movie.id}
                   name={movie.nameRU || movie.nameEN}
                   time={movie.duration}
+                  isLiked={movie.isLiked}
                   trailerLink={movie.trailerLink}
+                  saveFilmButton={props.saveFilmButton}
                 />
               );
             })

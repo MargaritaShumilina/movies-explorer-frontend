@@ -1,5 +1,4 @@
 export const BASE_URL = '//api.movie-pro.nomoredomains.rocks';
-// export const BASE_URL = 'http://localhost:3000';
 
 function getResponse(res) {
   if (res.ok) {

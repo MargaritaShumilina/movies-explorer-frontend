@@ -4,11 +4,9 @@ import logo from '../../images/logo.svg';
 
 import { NavLink } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useState, useEffect, useContext } from 'react';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useState, useEffect } from 'react';
 
 function LoginBlock(props) {
-  const { currentUser } = useContext(CurrentUserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);

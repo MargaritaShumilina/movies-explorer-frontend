@@ -9,11 +9,10 @@ function ProfileBlock(props) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isSubmitSuccessful },
+    formState: { errors },
   } = useForm({ mode: 'onChange' });
 
   const [edit, setEdit] = useState(false);
-  const [isButton, setIsButton] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [disabledInputs, setDisabledInputs] = useState(true);
   const [userName, setUserName] = useState('');
@@ -184,6 +183,13 @@ function ProfileBlock(props) {
               Сохранить
             </button>
           </div>
+        )}
+        {props.setSuccessful ? (
+          <div>
+            <p className="success">Успешно!</p>
+          </div>
+        ) : (
+          ''
         )}
       </div>
     </section>

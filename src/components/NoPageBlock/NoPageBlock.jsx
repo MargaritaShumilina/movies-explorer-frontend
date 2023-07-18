@@ -1,14 +1,22 @@
 import './NoPageBlock.css';
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function NoPageBlock() {
+  const navigate = useNavigate();
+
+  function goBack() {
+    navigate(-1);
+  }
   return (
     <section className="not-found">
       <p className="not-found__status">404</p>
       <p className="not-found__description">Страница не найдена</p>
-      <NavLink to="/" className="not-found__navigate-link main-link-style">
+      <button
+        onClick={goBack}
+        className="not-found__navigate-link main-link-style invisible-button"
+      >
         Назад
-      </NavLink>
+      </button>
     </section>
   );
 }

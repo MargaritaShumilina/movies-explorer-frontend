@@ -1,20 +1,24 @@
+import React from 'react';
+
 import '../../Movies/MoviesCardList/MoviesCardList.css';
 import './SavedMoviesCardList.css';
 import SavedMoviesCard from '../SavedMoviesCard/SavedMoviesCard';
-import { getSaveMovie } from '../../../utils/MainApi';
 
 import { useState, useEffect } from 'react';
 
-function SavedMoviesCardList() {
-  const [saveFilms, setSaveFilms] = useState([]);
-  useEffect(() => {
-    getSaveMovie().then((res) => {
-      setSaveFilms(res);
-    });
-  }, []);
-
+function SavedMoviesCardList({
+  noFilmsFound,
+  emptyListMessage,
+  saveFilms,
+  handleDelete,
+}) {
   return (
     <section className="movie-card-list saved-movie-card-list">
+      {noFilmsFound ? (
+        <div>Ничего не найдено :(</div>
+      ) : (
+        <div>{emptyListMessage}</div>
+      )}
       <div className="movie-card-list__container">
         {saveFilms.map((movie, i) => {
           return (
@@ -25,6 +29,7 @@ function SavedMoviesCardList() {
               id={movie._id}
               name={movie.nameRU}
               time={movie.duration}
+              handleDelete={handleDelete}
             />
           );
         })}

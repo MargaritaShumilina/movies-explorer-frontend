@@ -1,27 +1,27 @@
-import { useState, useEffect, useContext } from 'react';
-import { SearchContext } from '../../../contexts/SearchContext';
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 
 import Search from '../../../images/search.svg';
 import './SearchForm.css';
-import { getInitialFilms } from '../../../utils/MoviesApi';
-import { useForm } from 'react-hook-form';
 
 function SearchForm(props) {
-  const [filterFilms, setFilterFilms] = useState(false);
+  const [filterFilms, setFilterFilms] = useState(() => {
+    const status = localStorage.getItem('shortFilm');
+    if (status && status === 'true') {
+      return true;
+    }
+    return false;
+  });
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    //очищает значение search
-    setSearch(searchFilms);
-    setFilterFilms(localStorage.getItem('shortFilm'));
-    //очищает значение movies
-    localStorage.getItem('movies');
-  }, []);
+    setSearch(props.searchString);
+  }, [props.searchString]);
 
-  const { searchFilms } = useContext(SearchContext);
   const shortFilmFilter = () => {
     setFilterFilms(!filterFilms);
-    localStorage.setItem('shortFilm', filterFilms);
+    localStorage.setItem('shortFilm', !filterFilms);
+    handleSubmitSearch(search);
   };
 
   function handleChangeSearchInput(e) {
@@ -29,8 +29,8 @@ function SearchForm(props) {
   }
 
   function handleSubmitSearch() {
-    props.handleSearch(search);
     localStorage.setItem('searchValue', search);
+    props.handleSearch(search);
   }
 
   const {
@@ -67,16 +67,16 @@ function SearchForm(props) {
               className="search__button main-button-style"
               type="submit"
               style={{ backgroundImage: `url(${Search})` }}
-              // onClick={props.handleSubmitSearch(e, search)}
               onSubmit={handleSubmit(handleSubmitSearch)}
             ></button>
           </div>
           <div className="search__short-films-filter">
             <input
-              onClick={shortFilmFilter}
+              onChange={shortFilmFilter}
               id="filterFilms"
               type="checkbox"
               value={filterFilms}
+              checked={filterFilms}
               className={`search__short-films-checkbox
                 ${
                   filterFilms

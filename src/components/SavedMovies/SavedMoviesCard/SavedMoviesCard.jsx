@@ -1,23 +1,15 @@
 import '../../Movies/MoviesCard/MoviesCard.css';
 import './SavedMoviesCard.css';
 import Delete from '../../../images/delete-icon.svg';
-import { deleteSave } from '../../../utils/MainApi';
 import { convertMinutesToHours } from '../../../utils/convert';
-import { useState, useEffect } from 'react';
 
-function SavedMoviesCard({ trailerLink, photo, name, time, id }) {
-  const [deleteFilms, setDeleteFilms] = useState(true);
-
+function SavedMoviesCard({ trailerLink, photo, name, time, id, handleDelete }) {
   function handleDeleteFromSaveFilms() {
-    setDeleteFilms(!deleteFilms);
-    deleteSave(id);
+    handleDelete(id);
   }
 
-  useEffect(() => {
-  }, [deleteFilms]);
-
   return (
-    <article className="movie-card saved-movie-card">
+    <article className="movie-card saved-movie-card" key={id}>
       <a href={trailerLink}>
         <img
           src={photo}

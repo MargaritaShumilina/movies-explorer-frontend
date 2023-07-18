@@ -10,6 +10,7 @@ function Profile(props) {
         onUpdateUser={props.onUpdateUser}
         signOut={props.signOut}
         errorMessage={props.errorMessage}
+        setSuccessful={props.setSuccessful}
       />
     </>
   );
