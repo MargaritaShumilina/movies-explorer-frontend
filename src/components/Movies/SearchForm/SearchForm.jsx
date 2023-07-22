@@ -25,6 +25,7 @@ function SearchForm(props) {
   };
 
   function handleChangeSearchInput(e) {
+    clearErrors();
     setSearch(e.target.value);
   }
 
@@ -37,11 +38,22 @@ function SearchForm(props) {
     register,
     handleSubmit,
     formState: { errors },
+    clearErrors,
   } = useForm({ mode: 'onChange' });
+
+  function onSubmit(formData) {
+    const { film } = formData;
+    localStorage.setItem('searchValue', film);
+    props.handleSearch(film);
+  }
 
   return (
     <section className="search-block">
-      <form className="search" onSubmit={handleSubmit(handleSubmitSearch)}>
+      <form
+        className="search"
+        onSubmit={handleSubmit(handleSubmitSearch)}
+        // onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="search__main">
           <img src={Search} alt="Иконка поиска" className="search__icon" />
           <input
@@ -49,7 +61,7 @@ function SearchForm(props) {
             className="search__input"
             placeholder="Фильм"
             {...register('film', {
-              required: 'Обязательное поле!',
+              required: 'Нужно ввести ключевое слово!',
             })}
             onChange={handleChangeSearchInput}
             value={search}
@@ -67,7 +79,7 @@ function SearchForm(props) {
               className="search__button main-button-style"
               type="submit"
               style={{ backgroundImage: `url(${Search})` }}
-              onSubmit={handleSubmit(handleSubmitSearch)}
+              // onSubmit={handleSubmit(handleSubmitSearch)}
             ></button>
           </div>
           <div className="search__short-films-filter">

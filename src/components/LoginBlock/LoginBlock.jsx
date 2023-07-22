@@ -7,13 +7,12 @@ import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 
 function LoginBlock(props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitSuccessful },
+    getValues,
     reset,
   } = useForm({ mode: 'onChange' });
 
@@ -23,27 +22,12 @@ function LoginBlock(props) {
     reset();
   }, [isSubmitSuccessful, props.errorMessage]);
 
-  useEffect(() => {
-    localStorage.removeItem('errorLogin');
-  }, [email, password]);
-
   function handleSubmitLogin() {
+    const email = getValues('email');
+    const password = getValues('password');
     props.handleLoginClick(email, password);
     reset({ email: '', password: '' });
-    if (localStorage.getItem('errorLogin') !== null) {
-      setDisabled(true);
-    }
     setDisabled(true);
-  }
-
-  function handleChangeEmail(e) {
-    setDisabled(false);
-    setEmail(e.target.value);
-  }
-
-  function handleChangePassword(e) {
-    setDisabled(false);
-    setPassword(e.target.value);
   }
 
   return (
@@ -68,17 +52,18 @@ function LoginBlock(props) {
                 placeholder="pochta@yandex.ru"
                 id="form-login-email"
                 {...register('email', {
-                  required: 'Ошибка! Введите корректный Email',
+                  required: true,
                   pattern:
                     /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
                 })}
-                value={email}
-                onChange={handleChangeEmail}
               />
             </label>
             <div className="popup-input-error">
-              {errors?.email && (
-                <p>{errors?.email?.message || 'Произошла ошибка!'}</p>
+              {errors.email?.type === 'required' && (
+                <p>Поле обязательно к заполению</p>
+              )}
+              {errors.email?.type === 'pattern' && (
+                <p>Ошибка! Введите корректный Email</p>
               )}
             </div>
             <label className="form-login__labels">
@@ -91,8 +76,6 @@ function LoginBlock(props) {
                 {...register('password', {
                   required: 'Поле обязательно к заполению',
                 })}
-                value={password}
-                onChange={handleChangePassword}
               />
             </label>
             <div className="popup-input-error">
@@ -106,10 +89,10 @@ function LoginBlock(props) {
           </div>
           <button
             className={`main-form__button form-login__button main-button-style ${
-              !isValid || disabled ? 'profile__button_disabled' : ''
+              !isValid ? 'profile__button_disabled' : ''
             }`}
             type="submit"
-            disabled={disabled}
+            disabled={!isValid}
             onSubmit={handleSubmit(handleSubmitLogin)}
           >
             Войти

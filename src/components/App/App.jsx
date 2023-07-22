@@ -103,7 +103,7 @@ function App() {
 
   function signOut() {
     localStorage.clear();
-    navigate('/');
+    navigate('/', { replace: true });
     setLoggedIn(false);
     setUserData('');
   }
@@ -133,7 +133,6 @@ function App() {
       .catch((err) => {
         setSuccessful(false);
         setErrorMessage(err);
-        localStorage.setItem('errorRegistration', err);
       });
   }
 
@@ -155,7 +154,6 @@ function App() {
       .catch((err) => {
         setSuccessful(false);
         setErrorMessage(err);
-        localStorage.setItem('errorLogin', err);
         console.log(err);
       });
   }
@@ -163,10 +161,11 @@ function App() {
   const handleUpdateUser = (data) => {
     userInformationForSave(data.name, data.email)
       .then(({ name, email }) => {
+        setProfileSuccessful(true);
         setCurrentUser({ name, email });
       })
-      .finally(() => setProfileSuccessful(true))
       .catch((e) => {
+        setProfileSuccessful(false);
         setErrorMessage(e);
         localStorage.setItem('error', e);
       });

@@ -11,47 +11,27 @@ function RegisterBlock(props) {
     handleSubmit,
     formState: { errors, isValid, isSubmitSuccessful },
     reset,
+    getValues,
   } = useForm({ mode: 'onChange' });
-
-  useEffect(() => {
-    reset();
-  }, [isSubmitSuccessful]);
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [disabled, setDisabled] = useState(true);
-
-  function handleSubmitRegistration() {
-    console.log(name, email, password);
-    props.handleRegistrationClick(name, email, password);
-    reset({ name: '', email: '', password: '' });
-    if (localStorage.getItem('errorRegistration') !== null) {
-      setDisabled(true);
-    }
-    setDisabled(true);
-  }
 
   useEffect(() => {}, [props.errorMessage]);
 
   useEffect(() => {
-    localStorage.removeItem('errorRegistration');
-  }, [name, email, password]);
+    reset();
+  }, [isSubmitSuccessful, props.errorMessage]);
 
-  function handleChangeName(e) {
-    setDisabled(false);
-    setName(e.target.value);
+  const [disabled, setDisabled] = useState(true);
+
+  function handleSubmitRegistration() {
+    const name = getValues('name');
+    const email = getValues('email');
+    const password = getValues('password');
+    props.handleRegistrationClick(name, email, password);
+    reset({ name: '', email: '', password: '' });
+    setDisabled(true);
   }
 
-  function handleChangeEmail(e) {
-    setDisabled(false);
-    setEmail(e.target.value);
-  }
-
-  function handleChangePassword(e) {
-    setDisabled(false);
-    setPassword(e.target.value);
-  }
+  useEffect(() => {}, [props.errorMessage]);
 
   return (
     <section className="main-content">
@@ -86,12 +66,22 @@ function RegisterBlock(props) {
                   },
                   pattern: /^[A-Za-zА-Яа-яЁё /s -]+$/,
                 })}
-                value={name}
-                onChange={handleChangeName}
               />
             </label>
             <div className="popup-input-error">
-              {errors?.name && (
+              {errors.name?.type === 'required' && (
+                <p>Поле обязательно к заполению</p>
+              )}
+              {errors.name?.type === 'pattern' && (
+                <p>
+                  Ошибка! Имя не должно содержать цифры и другие символы, кроме
+                  -
+                </p>
+              )}
+              {errors.name?.type === 'minLength' && (
+                <p>{errors?.name?.message || 'Произошла ошибка!'}</p>
+              )}
+              {errors.name?.type === 'maxLength' && (
                 <p>{errors?.name?.message || 'Произошла ошибка!'}</p>
               )}
             </div>
@@ -107,13 +97,14 @@ function RegisterBlock(props) {
                   pattern:
                     /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
                 })}
-                value={email}
-                onChange={handleChangeEmail}
               />
             </label>
             <div className="popup-input-error">
-              {errors?.email && (
-                <p>{errors?.email?.message || 'Произошла ошибка!'}</p>
+              {errors.email?.type === 'required' && (
+                <p>Поле обязательно к заполению</p>
+              )}
+              {errors.email?.type === 'pattern' && (
+                <p>Ошибка! Введите корректный Email</p>
               )}
             </div>
             <label className="form-registration__labels last-form-label">
@@ -127,8 +118,6 @@ function RegisterBlock(props) {
                 {...register('password', {
                   required: 'Поле обязательно к заполению',
                 })}
-                value={password}
-                onChange={handleChangePassword}
               />
             </label>
             <div className="popup-input-error">
@@ -142,10 +131,10 @@ function RegisterBlock(props) {
           </div>
           <button
             className={`main-form__button form-registration__button main-button-style ${
-              !isValid || disabled ? 'profile__button_disabled' : ''
+              !isValid ? 'profile__button_disabled' : ''
             }`}
             type="submit"
-            disabled={disabled}
+            disabled={!isValid}
             onSubmit={handleSubmit(handleSubmitRegistration)}
           >
             Зарегистрироваться

@@ -9,14 +9,21 @@ function ProfileBlock(props) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm({ mode: 'onChange' });
+    formState: { errors, isValid },
+    reset,
+    getValues,
+  } = useForm({
+    mode: 'onChange',
+    defaultValues: {
+      name: '',
+      email: '',
+    },
+  });
 
   const [edit, setEdit] = useState(false);
-  const [disabled, setDisabled] = useState(true);
   const [disabledInputs, setDisabledInputs] = useState(true);
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+
+  const [userSuccess, setUserSuccess] = useState(false);
 
   const { currentUser } = useContext(CurrentUserContext);
 
@@ -29,41 +36,38 @@ function ProfileBlock(props) {
     return locNeNull;
   }
 
+  useEffect(() => {
+    setTimeout(handleChange, 1000);
+  }, [props.setSuccessful]);
+
   useEffect(() => {}, [props.errorMessage]);
 
   useEffect(() => {
-    setUserName('');
-    setUserEmail('');
-    if (localStorage.getItem('error') !== null) {
-      setDisabled(true);
-    }
+    reset();
   }, [currentUser]);
-
-  useEffect(() => {
-    localStorage.removeItem('error');
-  }, [userName, userEmail]);
 
   const handleEdit = () => {
     setEdit(!edit);
     setDisabledInputs(!disabledInputs);
   };
 
-  function handleChangeName(e) {
-    setDisabled(false);
-    setUserName(e.target.value);
-  }
-
-  function handleChangeEmail(e) {
-    setDisabled(false);
-    setUserEmail(e.target.value);
+  function handleChange() {
+    if (props.setSuccessful) {
+      setEdit(false);
+      setDisabledInputs(!disabledInputs);
+      reset();
+      setUserSuccess(!userSuccess);
+    }
   }
 
   function handleSubmitProfile() {
+    localStorage.removeItem('error');
+    const name = getValues('name');
+    const email = getValues('email');
     props.onUpdateUser({
-      name: userName,
-      email: userEmail || currentUser.email,
+      name: name || currentUser.name,
+      email: email || currentUser.email,
     });
-    setDisabled(true);
   }
 
   return (
@@ -87,6 +91,8 @@ function ProfileBlock(props) {
                   disabled={disabledInputs}
                   {...register('name', {
                     required: 'Поле обязательно к заполению',
+                    validate: (name) =>
+                      name !== currentUser.name || 'error message',
                     minLength: {
                       value: 2,
                       message: 'Минимум 2 символа',
@@ -97,8 +103,6 @@ function ProfileBlock(props) {
                     },
                     pattern: /^[A-Za-zА-Яа-яЁё /s -]+$/,
                   })}
-                  value={userName}
-                  onChange={handleChangeName}
                 />
                 <p
                   className={`profile__paragraph ${
@@ -107,13 +111,28 @@ function ProfileBlock(props) {
                 >
                   {currentUser.name}
                 </p>
-                <div className="popup-input-error">
-                  {errors?.email && (
-                    <p>{errors?.email?.message || 'Произошла ошибка!'}</p>
-                  )}
-                </div>
               </div>
-              <div className="profile__inputs-style">
+              <div className="popup-input-error">
+                {errors.name?.type === 'required' && (
+                  <p>Поле обязательно к заполению</p>
+                )}
+                {errors.name?.type === 'validate' && (
+                  <p>Имя должно отличаться</p>
+                )}
+                {errors.name?.type === 'pattern' && (
+                  <p>
+                    Ошибка! Имя не должно содержать цифры и другие символы,
+                    кроме -
+                  </p>
+                )}
+                {errors.name?.type === 'minLength' && (
+                  <p>{errors?.name?.message || 'Произошла ошибка!'}</p>
+                )}
+                {errors.name?.type === 'maxLength' && (
+                  <p>{errors?.name?.message || 'Произошла ошибка!'}</p>
+                )}
+              </div>
+              <div className="profile__inputs-style profile__inputs-style-last-child">
                 <input
                   type="email"
                   className="profile__input"
@@ -124,11 +143,11 @@ function ProfileBlock(props) {
                   disabled={disabledInputs}
                   {...register('email', {
                     required: 'Ошибка! Введите корректный Email',
+                    validate: (email) =>
+                      email !== currentUser.email || 'error message',
                     pattern:
                       /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
                   })}
-                  value={userEmail}
-                  onChange={handleChangeEmail}
                 />
                 <p
                   className={`profile__paragraph ${
@@ -137,11 +156,17 @@ function ProfileBlock(props) {
                 >
                   {currentUser.email}
                 </p>
-                <div className="popup-input-error">
-                  {errors?.email && (
-                    <p>{errors?.email?.message || 'Произошла ошибка!'}</p>
-                  )}
-                </div>
+              </div>
+              <div className="popup-input-error">
+                {errors.email?.type === 'validate' && (
+                  <p>Почта должно отличаться</p>
+                )}
+                {errors.email?.type === 'required' && (
+                  <p>Поле обязательно к заполению</p>
+                )}
+                {errors.email?.type === 'pattern' && (
+                  <p>Ошибка! Введите корректный Email</p>
+                )}
               </div>
             </fieldset>
           </form>
@@ -173,9 +198,9 @@ function ProfileBlock(props) {
         {edit && (
           <div className="profile__error-block">
             <button
-              disabled={disabled}
+              disabled={!isValid}
               className={`profile__button ${
-                disabled === true ? 'profile__button_disabled' : ''
+                !isValid ? 'profile__button_disabled' : ''
               }`}
               type="submit"
               onClick={handleSubmitProfile}
@@ -186,7 +211,9 @@ function ProfileBlock(props) {
         )}
         {props.setSuccessful ? (
           <div>
-            <p className="success">Успешно!</p>
+            <p className={`success ${userSuccess ? 'success-invis' : ''}`}>
+              Успешно!
+            </p>
           </div>
         ) : (
           ''
