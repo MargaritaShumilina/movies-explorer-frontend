@@ -114,7 +114,6 @@ function App() {
         if (res) {
           localStorage.setItem('jwt', res.token);
           setSuccessful(true);
-          navigate('/signin', { replace: true });
           console.log(res);
         }
         authorize(email, password)
@@ -213,6 +212,8 @@ function App() {
     setSearchFilms(searchString);
   };
 
+  const [noFilmsFound, setNoFilmsFound] = useState(false);
+
   const loadingFilms = (films, searchString = '') => {
     let filteredFilms = films;
     if (searchString !== '') {
@@ -227,6 +228,9 @@ function App() {
       const isShortFilm = localStorage.getItem('shortFilm') === 'true';
       if (isShortFilm) {
         filteredFilms = filteredFilms.filter((movie) => movie.duration < 40);
+      }
+      if (filteredFilms.length === 0) {
+        setNoFilmsFound(true);
       }
       return filteredFilms;
     }
@@ -293,6 +297,7 @@ function App() {
                 saveFilmButton={saveFilmButton}
                 searchString={searchFilms}
                 handleSearch={handleSearch}
+                noFilmsFound={noFilmsFound}
               />
             }
           />

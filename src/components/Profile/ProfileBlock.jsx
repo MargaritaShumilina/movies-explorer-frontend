@@ -6,6 +6,13 @@ import { useForm } from 'react-hook-form';
 import './ProfileBlock.css';
 
 function ProfileBlock(props) {
+  const [edit, setEdit] = useState(false);
+  const [disabledInputs, setDisabledInputs] = useState(true);
+
+  const [userSuccess, setUserSuccess] = useState(false);
+
+  const { currentUser } = useContext(CurrentUserContext);
+
   const {
     register,
     handleSubmit,
@@ -19,13 +26,6 @@ function ProfileBlock(props) {
       email: '',
     },
   });
-
-  const [edit, setEdit] = useState(false);
-  const [disabledInputs, setDisabledInputs] = useState(true);
-
-  const [userSuccess, setUserSuccess] = useState(false);
-
-  const { currentUser } = useContext(CurrentUserContext);
 
   function error() {
     if (localStorage.getItem('error') === null) {

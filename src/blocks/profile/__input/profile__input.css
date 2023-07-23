@@ -7,5 +7,6 @@
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
-  color: #000;
+  color: grey;
+  opacity: 0.5;
 }

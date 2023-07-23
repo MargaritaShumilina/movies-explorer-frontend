@@ -60,6 +60,24 @@ function MoviesCardList(props) {
         }
       }
     });
+    return () => {
+      window.removeEventListener('error', (e) => {
+        if (e.message === 'ResizeObserver loop limit exceeded') {
+          const resizeObserverErrDiv = document.getElementById(
+            'webpack-dev-server-client-overlay-div'
+          );
+          const resizeObserverErr = document.getElementById(
+            'webpack-dev-server-client-overlay'
+          );
+          if (resizeObserverErr) {
+            resizeObserverErr.setAttribute('style', 'display: none');
+          }
+          if (resizeObserverErrDiv) {
+            resizeObserverErrDiv.setAttribute('style', 'display: none');
+          }
+        }
+      });
+    };
   }, []);
 
   const moviesByPage = () => {
@@ -81,10 +99,6 @@ function MoviesCardList(props) {
     setTotalMovies(props.films.length);
   }, [searchFilms, shortFilm]);
 
-  useEffect(() => {
-    setNoFilmsFound(moviesByPage().length === 0 && !props.isLoading);
-  }, [moviesByPage, props.isLoading]);
-
   return (
     <>
       <SearchForm
@@ -94,7 +108,7 @@ function MoviesCardList(props) {
       />
       <section className="movie-card-list">
         <div className="movie-card-list__container">
-          {noFilmsFound ? (
+          {props.noFilmsFound ? (
             <p className="movie-card-list__no-films">Ничего не найдено :(</p>
           ) : null}
           {props.isLoading ? (

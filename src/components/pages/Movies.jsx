@@ -13,6 +13,7 @@ function Movies(props) {
         saveFilmButton={props.saveFilmButton}
         searchString={props.searchString}
         handleSearch={props.handleSearch}
+        noFilmsFound={props.noFilmsFound}
       />
       <Footer />
     </>
