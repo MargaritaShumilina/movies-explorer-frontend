@@ -4,6 +4,7 @@ import SearchForm from '../Movies/SearchForm/SearchForm';
 import SavedMoviesCardList from '../SavedMovies/SavedMoviesCardList/SavedMoviesCardList';
 import { useEffect, useState } from 'react';
 import { deleteSave, getSaveMovie } from '../../utils/MainApi';
+import { DURATION } from '../../utils/constants';
 
 function SavedMovies(props) {
   const [saveFilms, setSaveFilms] = useState([]);
@@ -17,6 +18,9 @@ function SavedMovies(props) {
         setSaveFilms(res);
         setFiltereFilms(res);
         setNoFilmsFound(res.length === 0);
+        setEmptyListMessage(
+          res.length === 0 ? 'У вас нет сохраненных фильмов' : ''
+        );
       })
       .catch((e) => {
         setEmptyListMessage(e);
@@ -49,7 +53,9 @@ function SavedMovies(props) {
 
     const isShortFilm = localStorage.getItem('shortFilm') === 'true';
     if (isShortFilm) {
-      filteredFilms = filteredFilms.filter((movie) => movie.duration < 40);
+      filteredFilms = filteredFilms.filter(
+        (movie) => movie.duration < DURATION.SHORT_TRESHOLD
+      );
     }
 
     return filteredFilms;
@@ -61,6 +67,7 @@ function SavedMovies(props) {
     localStorage.setItem('movies', filteredFilms);
     setFiltereFilms(filteredFilms);
     setNoFilmsFound(filteredFilms.length === 0 && searchString.trim() !== '');
+    setEmptyListMessage('Ничего не найдено');
   };
 
   const handleDelete = (id) => {

@@ -1,11 +1,7 @@
 import NoPageBlock from '../NoPageBlock/NoPageBlock';
 
 function NoPage() {
-  return (
-    <>
-      <NoPageBlock />
-    </>
-  );
+  return <NoPageBlock />;
 }
 
 export default NoPage;

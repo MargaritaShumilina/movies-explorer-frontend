@@ -6,14 +6,16 @@ import MoreBtn from '../../Movies/MoreBtn/MoreBtn';
 import SearchForm from '../SearchForm/SearchForm';
 
 import { SearchContext } from '../../../contexts/SearchContext';
+import { PAGINATION, SCREEN_RESOLUTION } from '../../../utils/constants';
+import login from '../../pages/Login';
 
 function MoviesCardList(props) {
   const { searchFilms } = useContext(SearchContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [shortFilm, setShortFilm] = useState(false);
 
-  const [cardCount, setCardCount] = useState(12);
-  const [loadCount, setLoadCount] = useState(3);
+  const [cardCount, setCardCount] = useState(PAGINATION.DEFAULT_PAGE_ITEMS);
+  const [loadCount, setLoadCount] = useState(PAGINATION.DEFAULT_LOAD_ITEMS);
 
   const [noFilmsFound, setNoFilmsFound] = useState(false);
 
@@ -24,15 +26,15 @@ function MoviesCardList(props) {
   const handleResize = () => {
     const screenWidth = window.innerWidth;
 
-    if (screenWidth >= 1280) {
-      setCardCount(12);
-      setLoadCount(3);
-    } else if (screenWidth >= 768) {
-      setCardCount(8);
-      setLoadCount(2);
-    } else if (screenWidth >= 320) {
-      setCardCount(5);
-      setLoadCount(2);
+    if (screenWidth >= SCREEN_RESOLUTION.WIDTH_1280) {
+      setCardCount(PAGINATION.PAGE_ITEMS.SCREEN.WIDTH_1280.PAGE_ITEMS);
+      setLoadCount(PAGINATION.PAGE_ITEMS.SCREEN.WIDTH_1280.LOAD_ITEMS);
+    } else if (screenWidth >= SCREEN_RESOLUTION.WIDTH_768) {
+      setCardCount(PAGINATION.PAGE_ITEMS.SCREEN.WIDTH_768.PAGE_ITEMS);
+      setLoadCount(PAGINATION.PAGE_ITEMS.SCREEN.WIDTH_768.LOAD_ITEMS);
+    } else if (screenWidth >= SCREEN_RESOLUTION.WIDTH_320) {
+      setCardCount(PAGINATION.PAGE_ITEMS.SCREEN.WIDTH_320.PAGE_ITEMS);
+      setLoadCount(PAGINATION.PAGE_ITEMS.SCREEN.WIDTH_320.LOAD_ITEMS);
     }
   };
 
@@ -92,19 +94,19 @@ function MoviesCardList(props) {
   const [showLoadButton, setShowLoadButton] = useState(false);
 
   useEffect(() => {
-    setShowLoadButton(cardCount < totalMovies);
-  }, [cardCount, totalMovies, shortFilm]);
+    setShowLoadButton(cardCount < props.films.length);
+  }, [cardCount, props.films.length, shortFilm]);
 
-  useEffect(() => {
-    setTotalMovies(props.films.length);
-  }, [searchFilms, shortFilm]);
+  function handleSearchMovies(search) {
+    setCardCount(PAGINATION.DEFAULT_PAGE_ITEMS);
+    props.handleSearch(search);
+  }
 
   return (
     <>
       <SearchForm
-        handleSubmitSearch={props.handleSubmitSearch}
         searchString={props.searchString}
-        handleSearch={props.handleSearch}
+        handleSearch={handleSearchMovies}
       />
       <section className="movie-card-list">
         <div className="movie-card-list__container">
@@ -117,6 +119,7 @@ function MoviesCardList(props) {
             moviesByPage().map((movie, i) => {
               return (
                 <MoviesCard
+                  key={`${i}_${movie.id}`}
                   movie={movie}
                   photo={`https://api.nomoreparties.co${movie.image.url}`}
                   id={movie.id}

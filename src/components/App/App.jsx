@@ -24,6 +24,7 @@ import {
 } from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { SearchContext } from '../../contexts/SearchContext';
+import { DURATION } from '../../utils/constants';
 
 function App() {
   const [matches, setMatches] = useState(false);
@@ -103,7 +104,6 @@ function App() {
 
   function signOut() {
     localStorage.clear();
-    navigate('/', { replace: true });
     setLoggedIn(false);
     setUserData('');
   }
@@ -227,7 +227,9 @@ function App() {
       });
       const isShortFilm = localStorage.getItem('shortFilm') === 'true';
       if (isShortFilm) {
-        filteredFilms = filteredFilms.filter((movie) => movie.duration < 40);
+        filteredFilms = filteredFilms.filter(
+          (movie) => movie.duration < DURATION.SHORT_TRESHOLD
+        );
       }
       if (filteredFilms.length === 0) {
         setNoFilmsFound(true);
@@ -270,7 +272,9 @@ function App() {
           <Route
             path="/signup"
             element={
-              <Register
+              <ProtectedRouteElement
+                element={Register}
+                loggedIn={!loggedIn}
                 handleRegistrationClick={handleRegistrationClick}
                 errorMessage={errorMessage}
               />
@@ -279,7 +283,9 @@ function App() {
           <Route
             path="/signin"
             element={
-              <Login
+              <ProtectedRouteElement
+                element={Login}
+                loggedIn={!loggedIn}
                 handleLoginClick={handleLoginClick}
                 errorMessage={errorMessage}
               />

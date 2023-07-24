@@ -10,20 +10,20 @@ function ProfileBlock(props) {
   const [disabledInputs, setDisabledInputs] = useState(true);
 
   const [userSuccess, setUserSuccess] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const { currentUser } = useContext(CurrentUserContext);
-
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     reset,
     getValues,
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      name: '',
-      email: '',
+      name: currentUser.name,
+      email: currentUser.email,
     },
   });
 
@@ -43,7 +43,7 @@ function ProfileBlock(props) {
   useEffect(() => {}, [props.errorMessage]);
 
   useEffect(() => {
-    reset();
+    reset(currentUser);
   }, [currentUser]);
 
   const handleEdit = () => {
@@ -55,8 +55,7 @@ function ProfileBlock(props) {
     if (props.setSuccessful) {
       setEdit(false);
       setDisabledInputs(!disabledInputs);
-      reset();
-      setUserSuccess(!userSuccess);
+      setUserSuccess(true);
     }
   }
 
@@ -65,9 +64,12 @@ function ProfileBlock(props) {
     const name = getValues('name');
     const email = getValues('email');
     props.onUpdateUser({
-      name: name || currentUser.name,
-      email: email || currentUser.email,
+      name: name,
+      email: email,
     });
+    reset(currentUser);
+    setButtonDisabled(true);
+    setTimeout(handleChange, 1000);
   }
 
   return (
@@ -81,18 +83,18 @@ function ProfileBlock(props) {
           >
             <fieldset className="profile__inputs">
               <div className="profile__inputs-style">
+                <label for="form-profile-name" className="profile__label">
+                  Имя
+                </label>
                 <input
                   type="text"
                   className="profile__input"
-                  placeholder="Имя"
                   id="form-profile-name"
                   maxLength="40"
                   minLength="5"
                   disabled={disabledInputs}
                   {...register('name', {
                     required: 'Поле обязательно к заполению',
-                    validate: (name) =>
-                      name !== currentUser.name || 'error message',
                     minLength: {
                       value: 2,
                       message: 'Минимум 2 символа',
@@ -102,15 +104,11 @@ function ProfileBlock(props) {
                       message: 'Максимум 40 символов',
                     },
                     pattern: /^[A-Za-zА-Яа-яЁё /s -]+$/,
+                    onChange: (e) => {
+                      setButtonDisabled(e.target.value === currentUser.name);
+                    },
                   })}
                 />
-                <p
-                  className={`profile__paragraph ${
-                    !disabledInputs && 'profile__paragraph_invis'
-                  }`}
-                >
-                  {currentUser.name}
-                </p>
               </div>
               <div className="popup-input-error">
                 {errors.name?.type === 'required' && (
@@ -133,6 +131,9 @@ function ProfileBlock(props) {
                 )}
               </div>
               <div className="profile__inputs-style profile__inputs-style-last-child">
+                <label htmlFor="form-profile-email" className="profile__label">
+                  Email
+                </label>
                 <input
                   type="email"
                   className="profile__input"
@@ -143,19 +144,13 @@ function ProfileBlock(props) {
                   disabled={disabledInputs}
                   {...register('email', {
                     required: 'Ошибка! Введите корректный Email',
-                    validate: (email) =>
-                      email !== currentUser.email || 'error message',
                     pattern:
                       /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
+                    onChange: (e) => {
+                      setButtonDisabled(e.target.value === currentUser.name);
+                    },
                   })}
                 />
-                <p
-                  className={`profile__paragraph ${
-                    !disabledInputs && 'profile__paragraph_invis'
-                  }`}
-                >
-                  {currentUser.email}
-                </p>
               </div>
               <div className="popup-input-error">
                 {errors.email?.type === 'validate' && (
@@ -186,7 +181,7 @@ function ProfileBlock(props) {
 
             <div className="profile__link-container">
               <NavLink
-                to="/signin"
+                to="/"
                 className="profile__link main-link-style"
                 onClick={props.signOut}
               >
@@ -198,9 +193,9 @@ function ProfileBlock(props) {
         {edit && (
           <div className="profile__error-block">
             <button
-              disabled={!isValid}
+              disabled={buttonDisabled}
               className={`profile__button ${
-                !isValid ? 'profile__button_disabled' : ''
+                buttonDisabled ? 'profile__button_disabled' : ''
               }`}
               type="submit"
               onClick={handleSubmitProfile}
