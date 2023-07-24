@@ -183,6 +183,7 @@ function App() {
       };
     });
   };
+
   const getSavedFilms = () => {
     return getSaveMovie()
       .then((res) => {
@@ -205,6 +206,7 @@ function App() {
         const filteredFilms = loadingFilms(mappedFilms, searchString);
         localStorage.setItem('foundedFilms', JSON.stringify(filteredFilms));
         setFilteredFilms(filteredFilms);
+        console.log(savedFilms);
       })
       .finally(() => {
         setIsLoading(false);
@@ -239,9 +241,11 @@ function App() {
   };
 
   const saveFilmButton = (movie) => {
+    console.log(movie);
     if (movie.isLiked) {
       deleteSave(movie.savedMovieId).then((res) => {
-        handleSearch(searchFilms);
+        console.log(movie.savedMovieId);
+        // handleSearch(searchFilms);
       });
     } else {
       putSave({
@@ -257,7 +261,7 @@ function App() {
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
       }).then(() => {
-        handleSearch(searchFilms);
+        // handleSearch(searchFilms);
       });
     }
   };

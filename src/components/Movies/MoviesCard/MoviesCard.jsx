@@ -2,6 +2,7 @@ import './MoviesCard.css';
 import EnableIcon from '../../../images/active-point.svg';
 import Icon from '../../../images/disabled-point.svg';
 import { convertMinutesToHours } from '../../../utils/convert';
+import { useState } from 'react';
 
 function MoviesCard({
   photo,
@@ -13,8 +14,10 @@ function MoviesCard({
   isLiked,
   saveFilmButton,
 }) {
+  const [like, setLike] = useState(false);
   const clickHandler = () => {
     saveFilmButton(movie);
+    setLike(!like);
   };
 
   return (
@@ -27,7 +30,7 @@ function MoviesCard({
           <p className="movie-card__name">{name}</p>
           <button type="button" className="invisible-button">
             <img
-              src={isLiked ? EnableIcon : Icon}
+              src={isLiked || like ? EnableIcon : Icon}
               alt="Иконка сохранения"
               className="movie-card__save main-button-style"
               onClick={clickHandler}
