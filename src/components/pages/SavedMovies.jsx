@@ -15,6 +15,7 @@ function SavedMovies(props) {
   const updateSavedFilms = () => {
     getSaveMovie()
       .then((res) => {
+        localStorage.setItem('savedMovies', JSON.stringify(res));
         setSaveFilms(res);
         setFiltereFilms(res);
         setNoFilmsFound(res.length === 0);

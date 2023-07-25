@@ -80,6 +80,7 @@ function App() {
     if (searchValue && searchValue !== '' && allMovies && allMovies !== '') {
       doSearch(JSON.parse(allMovies), searchValue);
       setSearchFilms(searchValue);
+      setFilms(JSON.parse(allMovies));
     }
   }, []);
 
@@ -180,17 +181,26 @@ function App() {
     });
   };
 
-  const getSavedFilms = () => {
-    return getSaveMovie()
+  //загружаем все сохраненные фильмы
+  useEffect(() => {
+    getSaveMovie()
       .then((res) => {
-        return res;
+        setSaveFilms(res);
+        localStorage.setItem('savedMovies', JSON.stringify(res));
       })
       .catch((e) => {
         console.log(e);
         setErrorMessage(e);
       });
-  };
+  }, [loggedIn]);
 
+  //Обновляем сохраненные фильмы
+  useEffect(() => {
+    setSaveFilms(JSON.parse(localStorage.getItem('savedMovies')));
+    console.log('11');
+  }, [setSaveFilms, loggedIn]);
+
+  //Загружаем и сохраняем все фильмы в ЛС
   const loadInitialMovies = async () => {
     const response = await getInitialFilms();
     let movies = [];
@@ -201,11 +211,13 @@ function App() {
     return movies;
   };
 
+  // Копируем фильмы в фильтрующиеся
   const doSearch = (allMovies, searchString) => {
     const filteredFilms = loadingFilms(allMovies, searchString);
     setFilteredFilms(filteredFilms);
   };
 
+  //Поиск по фильмам
   const handleSearch = async (searchString) => {
     setIsLoading(true);
     let cachedMovies = localStorage.getItem('allMovies');
@@ -224,6 +236,7 @@ function App() {
 
   const [noFilmsFound, setNoFilmsFound] = useState(false);
 
+  //Фильтрация
   const loadingFilms = (films, searchString = '') => {
     let filteredFilms = films;
     if (searchString !== '') {
@@ -248,12 +261,26 @@ function App() {
     }
   };
 
+  //Кнопка лайка и дизлайка
   const saveFilmButton = (movie) => {
+    //Если фильм имеет параметр ИЛ
     if (movie.isLiked) {
-      deleteSave(movie.savedMovieId).then((res) => {
-        // handleSearch(searchFilms);
-      });
+      deleteSave(movie.savedMovieId)
+        .then((res) => {
+          //Запиши в новую переменную все фильмы, кроме того, что удалили
+          let updatedSavedMovies = saveFilms.filter(
+            (movie) => movie._id !== movie.savedMovieId
+          );
+          //Сохраняем
+          setSaveFilms(updatedSavedMovies);
+          localStorage.setItem(
+            'savedMovies',
+            JSON.stringify(updatedSavedMovies)
+          );
+        })
+        .catch((error) => console.log(error));
     } else {
+      //если нет ИЛ
       putSave({
         country: movie.country,
         director: movie.director,
@@ -266,18 +293,25 @@ function App() {
         movieId: movie.id,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
-      }).then(() => {
+      }).then((res) => {
+        //к ответу дополняем 2 параметра
         movie.isLiked = true;
-        movie.savedMovieId = movie.id;
-        films.map((film) => {
+        movie.savedMovieId = res._id;
+        //Проходимся по всем фильмам и ищем фильм с лайкнутым id, добавляем ему параметры
+        console.log(films);
+        const updatedMovies = films.map((film) => {
           if (film.id === movie.id) {
             film.isLiked = true;
-            film.savedMovieId = movie.id;
+            film.savedMovieId = movie.savedMovieId;
           }
           return film;
         });
-        localStorage.setItem('allMovies', JSON.stringify(films));
-        // handleSearch(searchFilms);
+        //Записываем все все новые фильмы и пришедший с сервера фильм
+        localStorage.setItem('allMovies', JSON.stringify(updatedMovies));
+        localStorage.setItem(
+          'savedMovies',
+          JSON.stringify([...saveFilms, res])
+        );
       });
     }
   };

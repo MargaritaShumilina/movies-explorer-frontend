@@ -44,6 +44,7 @@ function ProfileBlock(props) {
 
   useEffect(() => {
     reset(currentUser);
+    setUserSuccess(false);
   }, [currentUser]);
 
   const handleEdit = () => {
