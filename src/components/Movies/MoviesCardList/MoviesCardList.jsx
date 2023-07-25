@@ -1,23 +1,17 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Preloader from '../Preloader/Preloader';
 import MoreBtn from '../../Movies/MoreBtn/MoreBtn';
 import SearchForm from '../SearchForm/SearchForm';
-
-import { SearchContext } from '../../../contexts/SearchContext';
 import { PAGINATION, SCREEN_RESOLUTION } from '../../../utils/constants';
-import login from '../../pages/Login';
 
 function MoviesCardList(props) {
-  const { searchFilms } = useContext(SearchContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [shortFilm, setShortFilm] = useState(false);
 
   const [cardCount, setCardCount] = useState(PAGINATION.DEFAULT_PAGE_ITEMS);
   const [loadCount, setLoadCount] = useState(PAGINATION.DEFAULT_LOAD_ITEMS);
-
-  const [noFilmsFound, setNoFilmsFound] = useState(false);
 
   const incrementPage = () => {
     setCardCount((prevCount) => prevCount + loadCount);
@@ -82,7 +76,6 @@ function MoviesCardList(props) {
     };
   }, []);
 
-
   const moviesByPage = () => {
     if (props.films.length === 0) {
       return [];
@@ -91,7 +84,6 @@ function MoviesCardList(props) {
     return filmsPagination;
   };
 
-  const [totalMovies, setTotalMovies] = useState(props.films.length + 1);
   const [showLoadButton, setShowLoadButton] = useState(false);
 
   useEffect(() => {
@@ -126,9 +118,9 @@ function MoviesCardList(props) {
                   id={movie.id}
                   name={movie.nameRU || movie.nameEN}
                   time={movie.duration}
-                  isLiked={movie.isLiked}
                   trailerLink={movie.trailerLink}
                   saveFilmButton={props.saveFilmButton}
+                  saveFilms={props.saveFilms}
                 />
               );
             })

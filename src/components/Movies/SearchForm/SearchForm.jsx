@@ -21,6 +21,7 @@ function SearchForm(props) {
   const shortFilmFilter = () => {
     setFilterFilms(!filterFilms);
     localStorage.setItem('shortFilm', !filterFilms);
+    console.log(search || props.searchString);
     handleSubmitSearch(search);
   };
 
@@ -41,18 +42,12 @@ function SearchForm(props) {
     clearErrors,
   } = useForm({ mode: 'onChange' });
 
-  function onSubmit(formData) {
-    const { film } = formData;
-    localStorage.setItem('searchValue', film);
-    props.handleSearch(film);
-  }
 
   return (
     <section className="search-block">
       <form
         className="search"
         onSubmit={handleSubmit(handleSubmitSearch)}
-        // onSubmit={handleSubmit(onSubmit)}
       >
         <div className="search__main">
           <img src={Search} alt="Иконка поиска" className="search__icon" />
@@ -96,7 +91,7 @@ function SearchForm(props) {
                     : `search__short-films-checkbox_off`
                 }`}
             />
-            <label for="filterFilms" className="search__filter-name">
+            <label htmlFor="filterFilms" className="search__filter-name">
               Короткометражки
             </label>
           </div>

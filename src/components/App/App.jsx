@@ -74,7 +74,7 @@ function App() {
     tokenCheck();
   }, []);
 
-  useEffect(() => {
+  const initRenderMoviesList = () => {
     const searchValue = localStorage.getItem('searchValue');
     const allMovies = localStorage.getItem('allMovies');
     if (searchValue && searchValue !== '' && allMovies && allMovies !== '') {
@@ -82,21 +82,27 @@ function App() {
       setSearchFilms(searchValue);
       setFilms(JSON.parse(allMovies));
     }
-  }, []);
+  };
 
-  const tokenCheck = () => {
+  const handleSetSaveFilms = (saveFilms) => {
+    setSaveFilms(saveFilms);
+  };
+
+  const tokenCheck = async () => {
     const jwt = localStorage.getItem('jwt');
     if (jwt && jwt !== 'undefined') {
-      getContent(jwt)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            setCurrentUser(res);
-            navigate(location, { replace: true });
-          }
-        })
-        .finally(!isTokenChecked)
-        .catch((err) => console.log(err));
+      try {
+        const res = await getContent(jwt);
+        if (res) {
+          setLoggedIn(true);
+          setCurrentUser(res);
+          await loadSavedFilms();
+          initRenderMoviesList();
+          navigate(location, { replace: true });
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -167,37 +173,23 @@ function App() {
       });
   };
 
-  const filmsMapper = (films, saveFilms) => {
-    return films.map((film) => {
-      console.log(saveFilms);
-      return {
-        ...film,
-        isLiked: saveFilms
-          .map((saveFilm) => saveFilm.movieId)
-          .includes(film.id),
-        savedMovieId: saveFilms.find((saveFilm) => saveFilm.movieId === film.id)
-          ?._id,
-      };
-    });
-  };
-
   //загружаем все сохраненные фильмы
-  useEffect(() => {
-    getSaveMovie()
-      .then((res) => {
+  const loadSavedFilms = async () => {
+    try {
+      const res = await getSaveMovie();
+      if (res) {
         setSaveFilms(res);
         localStorage.setItem('savedMovies', JSON.stringify(res));
-      })
-      .catch((e) => {
-        console.log(e);
-        setErrorMessage(e);
-      });
-  }, [loggedIn]);
+      }
+    } catch (e) {
+      console.log(e);
+      setErrorMessage(e);
+    }
+  };
 
   //Обновляем сохраненные фильмы
   useEffect(() => {
     setSaveFilms(JSON.parse(localStorage.getItem('savedMovies')));
-    console.log('11');
   }, [setSaveFilms, loggedIn]);
 
   //Загружаем и сохраняем все фильмы в ЛС
@@ -238,6 +230,7 @@ function App() {
 
   //Фильтрация
   const loadingFilms = (films, searchString = '') => {
+    setNoFilmsFound(false);
     let filteredFilms = films;
     if (searchString !== '') {
       filteredFilms = filteredFilms.filter((movie) => {
@@ -263,13 +256,16 @@ function App() {
 
   //Кнопка лайка и дизлайка
   const saveFilmButton = (movie) => {
-    //Если фильм имеет параметр ИЛ
-    if (movie.isLiked) {
-      deleteSave(movie.savedMovieId)
+    //Если фильм есть в сохраненных
+    console.log(movie);
+    const isLikedMovie = saveFilms.find((film) => film.movieId === movie.id);
+    if (isLikedMovie) {
+      console.log(isLikedMovie);
+      deleteSave(isLikedMovie._id)
         .then((res) => {
           //Запиши в новую переменную все фильмы, кроме того, что удалили
-          let updatedSavedMovies = saveFilms.filter(
-            (movie) => movie._id !== movie.savedMovieId
+          const updatedSavedMovies = saveFilms.filter(
+            (film) => film._id !== isLikedMovie._id
           );
           //Сохраняем
           setSaveFilms(updatedSavedMovies);
@@ -280,38 +276,24 @@ function App() {
         })
         .catch((error) => console.log(error));
     } else {
-      //если нет ИЛ
+      //если нет в сохраненных
       putSave({
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
+        ...movie,
         image: `https://api.nomoreparties.co${movie.image.url}`,
-        trailerLink: movie.trailerLink,
         thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
         movieId: movie.id,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
       }).then((res) => {
-        //к ответу дополняем 2 параметра
-        movie.isLiked = true;
-        movie.savedMovieId = res._id;
-        //Проходимся по всем фильмам и ищем фильм с лайкнутым id, добавляем ему параметры
+        //Проходимся по всем фильмам и ищем фильм с лайкнутым id
         console.log(films);
-        const updatedMovies = films.map((film) => {
-          if (film.id === movie.id) {
-            film.isLiked = true;
-            film.savedMovieId = movie.savedMovieId;
-          }
-          return film;
-        });
-        //Записываем все все новые фильмы и пришедший с сервера фильм
-        localStorage.setItem('allMovies', JSON.stringify(updatedMovies));
-        localStorage.setItem(
-          'savedMovies',
-          JSON.stringify([...saveFilms, res])
-        );
+        if (!saveFilms.find((film) => film._id === res._id)) {
+          setSaveFilms([...saveFilms, res]);
+          localStorage.setItem(
+            'savedMovies',
+            JSON.stringify([...saveFilms, res])
+          );
+        }
+
+        //Записываем все новые фильмы и пришедший с сервера фильм
       });
     }
   };
@@ -358,6 +340,7 @@ function App() {
                 searchString={searchFilms}
                 handleSearch={handleSearch}
                 noFilmsFound={noFilmsFound}
+                saveFilms={saveFilms}
               />
             }
           />
@@ -369,6 +352,8 @@ function App() {
                 loggedIn={loggedIn}
                 matches={matchesDevice}
                 noFilms={noFilms}
+                handleSetSaveFilms={handleSetSaveFilms}
+                searchString={searchFilms}
               />
             }
           />

@@ -14,6 +14,7 @@ function Movies(props) {
         searchString={props.searchString}
         handleSearch={props.handleSearch}
         noFilmsFound={props.noFilmsFound}
+        saveFilms={props.saveFilms}
       />
       <Footer />
     </>

@@ -16,6 +16,7 @@ function SavedMovies(props) {
     getSaveMovie()
       .then((res) => {
         localStorage.setItem('savedMovies', JSON.stringify(res));
+        props.handleSetSaveFilms(res);
         setSaveFilms(res);
         setFiltereFilms(res);
         setNoFilmsFound(res.length === 0);
@@ -84,7 +85,10 @@ function SavedMovies(props) {
   return (
     <>
       <Header loggedIn={props.loggedIn} matches={props.matches} />
-      <SearchForm handleSearch={handleSearch} />
+      <SearchForm
+        handleSearch={handleSearch}
+        searchString={props.searchString}
+      />
       <SavedMoviesCardList
         noFilmsFound={noFilmsFound}
         saveFilms={filteredFilms}
