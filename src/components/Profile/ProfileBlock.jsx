@@ -108,6 +108,7 @@ function ProfileBlock(props) {
                     onChange: (e) => {
                       setButtonDisabled(e.target.value === currentUser.name);
                     },
+                    validate: (value) => value !== currentUser.name,
                   })}
                 />
               </div>
