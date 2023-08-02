@@ -4,8 +4,14 @@ import ProfileBlock from '../Profile/ProfileBlock';
 function Profile(props) {
   return (
     <>
-      <Header login={props.login} matches={props.matches} />
-      <ProfileBlock userName={props.userName} />
+      <Header loggedIn={props.loggedIn} matches={props.matches} />
+      <ProfileBlock
+        userName={props.userName}
+        onUpdateUser={props.onUpdateUser}
+        signOut={props.signOut}
+        errorMessage={props.errorMessage}
+        setSuccessful={props.setSuccessful}
+      />
     </>
   );
 }

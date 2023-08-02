@@ -1,11 +1,28 @@
 .profile__input {
+  flex: 0 1 auto;
+  text-align: end;
   border: none;
   width: 100%;
+  font-size: 11px;
+  padding-bottom: 8px;
+  margin-bottom: 6px;
+  margin-top: 17px;
+}
+.profile__input:disabled {
+  background: none;
+}
+.profile__label {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  border: none;
+  padding-bottom: 0;
 }
 
 .profile__input::placeholder {
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
-  color: #000;
+  color: grey;
+  opacity: 0.5;
 }

@@ -1,6 +1,6 @@
 .movie-card {
   width: 270px;
-  height: 218px;
+  max-height: 250px;
   box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
   display: flex;
@@ -10,13 +10,13 @@
 @media screen and (max-width: 920px) {
   .movie-card {
     width: 339px;
-    height: 257px;
+    max-height: 257px;
   }
 }
 
 @media screen and (max-width: 320px) {
   .movie-card {
     width: 300px;
-    height: 235px;
+    max-height: 235px;
   }
 }

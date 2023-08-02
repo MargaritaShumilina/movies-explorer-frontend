@@ -2,8 +2,37 @@ import './RegisterBlock.css';
 import logo from '../../images/logo.svg';
 
 import { NavLink } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
 
-function RegisterBlock() {
+function RegisterBlock(props) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid, isSubmitSuccessful },
+    reset,
+    getValues,
+  } = useForm({ mode: 'onChange' });
+
+  useEffect(() => {}, [props.errorMessage]);
+
+  useEffect(() => {
+    reset();
+  }, [isSubmitSuccessful, props.errorMessage]);
+
+  const [disabled, setDisabled] = useState(true);
+
+  function handleSubmitRegistration() {
+    const name = getValues('name');
+    const email = getValues('email');
+    const password = getValues('password');
+    props.handleRegistrationClick(name, email, password);
+    reset({ name: '', email: '', password: '' });
+    setDisabled(true);
+  }
+
+  useEffect(() => {}, [props.errorMessage]);
+
   return (
     <section className="main-content">
       <div className="welcom-header">
@@ -13,7 +42,10 @@ function RegisterBlock() {
         <h1 className="welcom-header__heading">Добро пожаловать!</h1>
       </div>
       <div className="main-form form-registration">
-        <form className="main-form__block form-registration__block">
+        <form
+          className="main-form__block form-registration__block"
+          onSubmit={handleSubmit(handleSubmitRegistration)}
+        >
           <fieldset className="main-form__inputs form-registration__inputs">
             <label className="form-registration__labels">
               <p className="main-form__labels">Имя</p>
@@ -21,46 +53,89 @@ function RegisterBlock() {
                 type="text"
                 className="main-form__input form-registration__input form-registration-input"
                 placeholder="Виталий"
-                required
                 id="form-registration-name"
-                maxLength="40"
-                minLength="2"
+                {...register('name', {
+                  required: 'Поле обязательно к заполению',
+                  minLength: {
+                    value: 2,
+                    message: 'Минимум 2 символа',
+                  },
+                  maxLength: {
+                    value: 40,
+                    message: 'Максимум 40 символов',
+                  },
+                  pattern: /^[A-Za-zА-Яа-яЁё /s -]+$/,
+                })}
               />
             </label>
-            <span className="form-registration-name-error popup-input-error"></span>
+            <div className="popup-input-error">
+              {errors.name?.type === 'required' && (
+                <p>Поле обязательно к заполению</p>
+              )}
+              {errors.name?.type === 'pattern' && (
+                <p>
+                  Ошибка! Имя не должно содержать цифры и другие символы, кроме
+                  -
+                </p>
+              )}
+              {errors.name?.type === 'minLength' && (
+                <p>{errors?.name?.message || 'Произошла ошибка!'}</p>
+              )}
+              {errors.name?.type === 'maxLength' && (
+                <p>{errors?.name?.message || 'Произошла ошибка!'}</p>
+              )}
+            </div>
             <label className="form-registration__labels">
               <p className="main-form__labels">E-mail</p>
               <input
                 type="email"
                 className="main-form__input form-registration__input form-registration-email"
                 placeholder="pochta@yandex.ru"
-                required
                 id="form-registration-email"
-                maxLength="40"
-                minLength="5"
+                {...register('email', {
+                  required: 'Поле обязательно к заполению',
+                  pattern:
+                    /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
+                })}
               />
             </label>
-            <span className="popup-url-avatar-error popup-input-error"></span>
+            <div className="popup-input-error">
+              {errors.email?.type === 'required' && (
+                <p>Поле обязательно к заполению</p>
+              )}
+              {errors.email?.type === 'pattern' && (
+                <p>Ошибка! Введите корректный Email</p>
+              )}
+            </div>
             <label className="form-registration__labels last-form-label">
               <p className="main-form__labels">Пароль</p>
               <input
                 type="password"
-                className="popup-input-error main-form__input form-registration__input form-registration-password"
+                className="main-form__input form-registration__input form-registration-password"
                 placeholder="Пароль"
-                required
                 id="form-registration-password"
-                maxLength="40"
-                minLength="5"
-                autocomplete="current-password"
+                autoComplete="current-password"
+                {...register('password', {
+                  required: 'Поле обязательно к заполению',
+                })}
               />
             </label>
-            <span className="popup-url-avatar-error popup-input-error">
-              Что-то пошло не так...
-            </span>
+            <div className="popup-input-error">
+              {errors?.password && (
+                <p>{errors?.password?.message || 'Произошла ошибка!'}</p>
+              )}
+            </div>
           </fieldset>
+          <div>
+            <p className="profile__error">{props.errorMessage}</p>
+          </div>
           <button
-            className="main-form__button form-registration__button main-button-style"
+            className={`main-form__button form-registration__button main-button-style ${
+              !isValid ? 'profile__button_disabled' : ''
+            }`}
             type="submit"
+            disabled={!isValid}
+            onSubmit={handleSubmit(handleSubmitRegistration)}
           >
             Зарегистрироваться
           </button>

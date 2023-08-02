@@ -1,0 +1,10 @@
+.header__mobile-navigation-icon_main-page {
+  left: 367px;
+}
+
+@media screen and (max-width: 520px) {
+  .header__mobile-navigation-icon_main-page {
+    top: 10px;
+    left: 185px;
+  }
+}

@@ -1,16 +1,21 @@
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
-import SearchForm from '../Movies/SearchForm/SearchForm';
 import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
-import MoreBtn from '../Movies/MoreBtn/MoreBtn';
 
 function Movies(props) {
   return (
     <>
-      <Header login={props.login} matches={props.matches} />
-      <SearchForm />
-      <MoviesCardList />
-      <MoreBtn />
+      <Header loggedIn={props.loggedIn} matches={props.matches} />
+      <MoviesCardList
+        errorMessage={props.errorMessage}
+        isLoading={props.isLoading}
+        films={props.films}
+        saveFilmButton={props.saveFilmButton}
+        searchString={props.searchString}
+        handleSearch={props.handleSearch}
+        noFilmsFound={props.noFilmsFound}
+        saveFilms={props.saveFilms}
+      />
       <Footer />
     </>
   );

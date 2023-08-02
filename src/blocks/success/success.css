@@ -1,0 +1,10 @@
+.success {
+  text-align: center;
+  color: seagreen;
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.success-invis {
+  visibility: hidden;
+}

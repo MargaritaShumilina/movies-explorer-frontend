@@ -55,3 +55,5 @@
 @import url('../../blocks/header/__navigation-item-link/header__navigation-item-link.css');
 
 @import url('../../blocks/link-button-style/link-button-style.css');
+
+@import url('../../blocks/header/__mobile-navigation-icon/_main-page/header__mobile-navigation-icon_main-page.css');

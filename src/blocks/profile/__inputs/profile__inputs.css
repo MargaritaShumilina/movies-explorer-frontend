@@ -2,5 +2,17 @@
   border: none;
   width: 100%;
   padding: 0;
-  margin: 0;
+  margin: 0 0 208px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__inputs {
+    margin-bottom: 196px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile__inputs {
+    margin-bottom: 366px;
+  }
 }

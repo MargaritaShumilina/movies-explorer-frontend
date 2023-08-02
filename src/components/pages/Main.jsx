@@ -6,11 +6,11 @@ import AboutMe from '../Main/AboutMe/AboutMe';
 import Footer from '../Footer/Footer';
 import '../Header/Header.css';
 
-function Main() {
+function Main(props) {
   return (
     <>
       <section className="main-page-header">
-        <Header />
+        <Header loggedIn={props.loggedIn} matches={props.matches} />
         <Promo />
       </section>
       <AboutProject />

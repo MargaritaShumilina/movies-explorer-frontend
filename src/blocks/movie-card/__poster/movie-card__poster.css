@@ -1,7 +1,8 @@
 .movie-card__poster {
   max-width: 270px;
-  max-height: 151px;
+  height: 151px;
   align-self: center;
+  width: 100%;
 }
 
 @media screen and (max-width: 920px) {

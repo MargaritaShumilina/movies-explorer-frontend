@@ -5,8 +5,8 @@
   line-height: 16px;
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .movie-card__name {
     margin: 0;
   }
-}
+} */

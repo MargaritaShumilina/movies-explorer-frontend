@@ -15,14 +15,10 @@ function Header(props) {
 
   return (
     <section className="header">
-      {!props.login && (
+      {!props.matches && !props.loggedIn && (
         <>
           <NavLink to="/" className="main-link-style">
-            <img
-              className="logo header__logo"
-              src={Logo}
-              alt="main logo"
-            />
+            <img className="logo header__logo" src={Logo} alt="main logo" />
           </NavLink>
           <nav className="header__navigation">
             <ul className="header__navigation-list">
@@ -43,7 +39,7 @@ function Header(props) {
           </nav>
         </>
       )}
-      {!props.matches && props.login && (
+      {!props.matches && props.loggedIn && (
         <>
           <NavLink to="/" className="main-link-style">
             <img
@@ -88,7 +84,7 @@ function Header(props) {
         </>
       )}
 
-      {props.matches && props.login && (
+      {props.matches && props.loggedIn && (
         <>
           <NavLink to="/" className="main-link-style">
             <img
@@ -159,6 +155,57 @@ function Header(props) {
                       src={Icon}
                       alt="Иконка аккаунта"
                     />
+                  </div>
+                </ul>
+              </nav>
+            </div>
+          )}
+        </>
+      )}
+
+      {props.matches && !props.loggedIn && (
+        <>
+          <NavLink to="/" className="main-link-style">
+            <img
+              className="header__logo header__logo_login"
+              src={Logo}
+              alt="main logo"
+            />
+          </NavLink>
+          <button className="header__menu" type="button">
+            <img
+              className={`header__menu-burger ${
+                isClick && 'header__menu-burger_opened'
+              }`}
+              src={Menu}
+              alt="menu logo"
+              onClick={mobileNavigation}
+            />
+          </button>
+          {isClick && (
+            <div className="header__mobile">
+              <img
+                src={CloseIcon}
+                alt="Закрывающая иконка"
+                onClick={mobileNavigation}
+                className="header__mobile-navigation-icon header__mobile-navigation-icon_main-page"
+              />
+              <nav className="header__mobile-navigation">
+                <ul className="header__mobile-navigation-list">
+                  <div className="header__mobile-navigation-page">
+                    <li className="header__mobile-navigation-item">
+                      <NavLink
+                        to="/signup"
+                        className="header__mobile-navigation-link main-link-style"
+                      >
+                        Регистрация
+                      </NavLink>
+                    </li>
+                    <li className="header__mobile-navigation-link">
+                      <NavLink to="/signin" className="main-link-style">
+                        Войти
+                      </NavLink>
+                    </li>
                   </div>
                 </ul>
               </nav>

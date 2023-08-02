@@ -2,5 +2,9 @@
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
-  color: #000;
+  color: grey;
+}
+
+.profile__paragraph_invis {
+  opacity: 0.5;
 }
